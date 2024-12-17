@@ -1,0 +1,314 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@400;700;900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif !important;
+}
+
+#hero_banner img {
+  height: 650px;
+  transition: all 3s;
+  object-fit: cover;
+  scale: 1.2;
+}
+
+#hero_banner .slick-slide.slick-active img {
+  scale: 1;
+}
+
+.hero_form label {
+  font-size: 16px;
+  font-weight: 300;
+  color: #000;
+  display: block;
+  margin-bottom: 0.2rem;
+  text-transform: uppercase;
+}
+
+.btn {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn:after {
+  background: #ffffff;
+  content: "";
+  height: 155px;
+  left: -75px;
+  opacity: 0.3;
+  position: absolute;
+  top: -50px;
+  transform: rotate(35deg);
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+  width: 50px;
+  /* z-index: 1; */
+}
+
+.btn:hover:after {
+  left: 110%;
+  transition: all 550ms cubic-bezier(0.19, 1, 0.22, 1);
+}
+
+.cursive {
+  font-family: "Cinzel Decorative", serif !important;
+}
+
+.hero_p {
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.container {
+  margin: 0 auto;
+}
+
+.quick_access {
+  position: relative;
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 450px;
+}
+
+.quick_access::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 11;
+}
+
+.quick_access .viewquick {
+  transition: all 0.5s;
+  transform: translateY(120px);
+  opacity: 0;
+}
+
+.quick_access:hover .viewquick {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.quick_access .parentqa {
+  transform: translateY(50px);
+  transition: all 0.5s;
+}
+
+.quick_access:hover .parentqa {
+  transform: translateY(0);
+}
+
+.parentqa img {
+  transition: all 0.5s;
+}
+
+.quick_access .overlaybg {
+  transition: all 0.5s;
+  transform: scale(0);
+  transform-origin: right bottom;
+  z-index: 15;
+}
+
+.quick_access:hover .overlaybg {
+  transform: scale(1);
+}
+
+.section_title {
+  font-size: 3rem;
+  font-weight: 700;
+  font-family: "Cinzel Decorative", serif !important;
+}
+
+.profileTesti {
+  clip-path: polygon(50% 0px, 100% 50%, 50% 100%, 0px 50%);
+  position: relative;
+  top: 66px;
+  left: 20px;
+  z-index: 8;
+}
+
+.testimonial p {
+  font-weight: 300;
+  letter-spacing: 1px;
+  text-align: justify;
+}
+
+.whyUs::after {
+  content: "";
+  position: absolute;
+  background: url("./assets/why-us.png");
+  width: 500px;
+  height: 344px;
+  background-size: cover;
+  left: calc(50% - 220px);
+  top: -219px;
+}
+
+.workflow::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  background: #d40000;
+  border-radius: 50%;
+}
+
+.workflow:not(:last-of-type)::after {
+  content: "";
+  position: absolute;
+  top: 69px;
+  left: 50.8%;
+  transform: translateX(-50%);
+  width: 1px;
+  height: 100%;
+  background: #d4000065;
+}
+
+.footer-widget li a {
+  display: block;
+  padding: 4px 0;
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.navlinks a {
+  display: block;
+
+  font-weight: 300;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.loginbg {
+  width: 100%;
+  height: 77px;
+  background: url("./assets/login-bg.png") center bottom / 300px;
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  right: 0px;
+  transition: all 0.5s ease-in-out 0s;
+  animation: 800s linear 0s infinite normal both running movehor;
+  border-radius: 0px 0px 10px 10px;
+  background-repeat-y: no-repeat;
+}
+
+@keyframes movehor {
+  0% {
+    background-position: 0px -18px;
+  }
+
+  100% {
+    background-position: -10000% -18px;
+  }
+}
+
+.otpbox input {
+  width: 50px !important;
+  height: 50px;
+  outline: none;
+  border: 1px solid #ddd;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  outline: none;
+  border: 1px solid #66451c60;
+  border-radius: 3px;
+  padding: 6px 10px;
+  background-color: #fff;
+  font-size: 14px;
+}
+
+.themeform label {
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  display: inline-block;
+  margin-bottom: 0.3rem;
+}
+
+.profile_completion {
+  margin: 0 auto;
+  display: table;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 10px solid #ffffff;
+  vertical-align: middle;
+  position: relative;
+  box-shadow: 0px 0px 32px -7px #b8b8b8;
+  background: linear-gradient(45deg, #0027ff, #ff0074);
+}
+
+.quotabox.active .checkbox:before {
+  content: "✓";
+  left: 4px;
+
+  color: #000;
+  font-size: 17px;
+  font-weight: 800;
+  position: absolute;
+}
+
+.radiogroup label {
+  font-size: 14px;
+}
+
+.subscription_title {
+  box-shadow: -3px 2px 0px #a569bd, inset -4px 5px 7px #845597;
+}
+
+.subscription_body {
+  min-height: 300px;
+  width: 100%;
+  border-radius: 1rem 1rem 3rem 3rem;
+  box-shadow: -3px 2px 0px #f1d9fb, inset -5px 5px 7px #c1c1c1;
+}
+
+.subscription_body ul li {
+  list-style: decimal;
+  padding: 10px 0;
+  font-weight: 300;
+  letter-spacing: 1px;
+}
+
+.button_1::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
+
+.button_1::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: calc(100% - 8px);
+  height: calc(100% - 8px);
+  border: 1px solid #fff;
+  border-radius: 50%;
+}
