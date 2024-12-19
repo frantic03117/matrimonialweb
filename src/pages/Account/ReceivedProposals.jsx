@@ -13,7 +13,7 @@ const ReceivedProposals = () => {
     const getusers = async () => {
         try {
             setLoad(true);
-            const resp = await axios.get(API_URL + "user/connection?type=received", {
+            const resp = await axios.get(API_URL + "user/connection?type=received&status=pending", {
                 headers: {
                     Authorization: "Bearer " + token
                 }
@@ -33,17 +33,7 @@ const ReceivedProposals = () => {
             <section>
                 <div className="container">
                     <div className="grid grid-cols-12 gap-5">
-                        <div className="col-span-12 mb-5">
-                            <div className="flex gap-5">
-                                <button>
-                                    Pending
-                                </button>
-                                <button>
-                                    Approved
-                                </button>
-                            </div>
 
-                        </div>
                         {
                             users.map((user) => (
                                 <>

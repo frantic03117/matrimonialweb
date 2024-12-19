@@ -10,11 +10,13 @@ const RegisterUser = ({ mobile }) => {
     const [lname, setLName] = React.useState('');
     const [email, setEmail] = React.useState('');
     const [password, setPassword] = React.useState('');
+    const [conf_password, setConfPassword] = React.useState('');
     const [gender, setGender] = React.useState('');
     const [file, setFile] = React.useState('');
     const [message, setMessage] = React.useState('');
     const [status, setStatus] = React.useState('');
     const [errors, setErrors] = React.useState([]);
+    const [adhar, setAadhar] = React.useState('');
     const validate = () => {
         let err = [];
         if (!fname) {
@@ -26,11 +28,17 @@ const RegisterUser = ({ mobile }) => {
         if (!password) {
             err.push({ path: "password", msg: "password  is required" })
         }
+        if (password != conf_password) {
+            err.push({ path: "password", msg: "Confirm password  is mismatch" })
+        }
         if (!gender) {
             err.push({ path: "gender", msg: "gender is required" })
         }
         if (!file) {
             err.push({ path: "file", msg: "Profile is required" })
+        }
+        if (!adhar) {
+            err.push({ path: "adhar", msg: "Aadhar is required" })
         }
         if (err.length > 0) {
             setErrors(err);
@@ -47,8 +55,6 @@ const RegisterUser = ({ mobile }) => {
     const handleRegister = async () => {
         try {
             if (validate()) {
-
-
                 const formData = new FormData();
                 formData.append('name', fname);
                 formData.append('last_name', lname);
@@ -57,6 +63,7 @@ const RegisterUser = ({ mobile }) => {
                 formData.append('gender', gender);
                 formData.append('file', file);
                 formData.append('mobile', mobile);
+                formData.append('adhar_no', adhar);
                 const resp = await axios.post(API_URL + "user", formData);
                 if (resp.data.success == "1") {
                     localStorage.setItem(usertoken, resp.data.token);
@@ -118,8 +125,26 @@ const RegisterUser = ({ mobile }) => {
                         </div>
                         <div className="col-span-6">
                             <div className="form-group">
+                                <label htmlFor="">Enter Aadhar</label>
+                                <input type="text" value={adhar} maxLength={12} minLength={12} onChange={(e) => setAadhar(e.target.value)} className="form-control" />
+                                <span className='block text-red-500 text-xs'>
+                                    {errors.find(obj => obj.path == "adhar")?.msg}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="col-span-6">
+                            <div className="form-group">
                                 <label htmlFor="">Enter Password</label>
-                                <input type="text" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" />
+                                <input type="text" value={conf_password} onChange={(e) => setConfPassword(e.target.value)} className="form-control" />
+                                <span className='block text-red-500 text-xs'>
+                                    {errors.find(obj => obj.path == "password")?.msg}
+                                </span>
+                            </div>
+                        </div>
+                        <div className="col-span-6">
+                            <div className="form-group">
+                                <label htmlFor="">Confirm Password</label>
+                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" />
                                 <span className='block text-red-500 text-xs'>
                                     {errors.find(obj => obj.path == "password")?.msg}
                                 </span>
@@ -147,7 +172,7 @@ const RegisterUser = ({ mobile }) => {
                             </div>
                         </div>
                         <div className="col-span-12">
-                            <button disabled={!fname || !password || !email || !gender} onClick={handleRegister} className="bg-primary disabled:bg-gray-600 py-2 px-10 text-white rounded">Submit</button>
+                            <button disabled={!fname || !password || !email || !gender || !adhar} onClick={handleRegister} className="bg-primary disabled:bg-gray-600 py-2 px-10 text-white rounded">Submit</button>
                         </div>
 
                     </div>

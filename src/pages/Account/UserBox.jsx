@@ -1,8 +1,11 @@
 import React from 'react'
-import { BASE_URL } from '../../utils';
+import { API_URL, BASE_URL, usertoken } from '../../utils';
 import { HeartFilled, HeartOutlined } from '@ant-design/icons';
-const UserBox = ({ userdata, sendInsterest, handleWishlist, viewType = "all" }) => {
+import { Link, useNavigate } from 'react-router-dom';
+import axios from 'axios';
+const UserBox = ({ userdata, sendInsterest, handleWishlist, handleConnection = () => { }, viewType = "all" }) => {
     const [profileimage, setProfileImage] = React.useState('');
+    const navigate = useNavigate();
     React.useEffect(() => {
         if (userdata?.profile_image) {
             setProfileImage(BASE_URL + userdata?.profile_image)
@@ -10,6 +13,17 @@ const UserBox = ({ userdata, sendInsterest, handleWishlist, viewType = "all" }) 
             setProfileImage('https://via.placeholder.com/150');
         }
     }, [userdata]);
+    const token = localStorage.getItem(usertoken);
+    const chatUser = async (user_id) => {
+        const resp = await axios.post(API_URL + "chat/room", { user_id }, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
+        if (resp.data.success == "1") {
+            navigate('/chat')
+        }
+    }
     function calculateAge(dob) {
         const dobDate = new Date(dob); // Convert DOB string to Date object
         const today = new Date(); // Current date
@@ -22,7 +36,7 @@ const UserBox = ({ userdata, sendInsterest, handleWishlist, viewType = "all" }) 
             <div className="w-full relative  overflow-hidden">
                 <>
 
-                    <div className="w-full p-5 rounded-xl shadow-sm shadow-gray-600 bg-white">
+                    <div className="w-full p-5 rounded-xl shadow-sm border border-primary/30 shadow-gray-900 bg-white">
                         <div className="grid grid-cols-12 gap-4">
                             <div className="col-span-2">
                                 <img src={profileimage} alt="" className=" size-32 rounded-xl" />
@@ -62,26 +76,46 @@ const UserBox = ({ userdata, sendInsterest, handleWishlist, viewType = "all" }) 
                                         </li>
                                     </ul>
                                     <div className="w-full py-3 text-end">
+
                                         {
-                                            viewType == "all" && (
+                                            (userdata?.interest && userdata?.interest?._id) ? (
                                                 <>
                                                     {
-                                                        (userdata?.interest && userdata?.interest?._id) ? (
+                                                        userdata?.interest?.status == "pending" && (
                                                             <>
                                                                 {
-                                                                    userdata?.interest?.stauts == "pending" && (
+                                                                    viewType == "all" && (
                                                                         <>
                                                                             <span className="absolute text-center top-[-10px] end-[-43px] inline-block rotate-45 text-nowrap px-3 py-1 bg-amber-700 text-white text-xs rounded">Pending</span>
+
+                                                                        </>
+                                                                    )
+                                                                }
+                                                                {
+                                                                    viewType == "received" && (
+                                                                        <>
+                                                                            <button onClick={() => handleConnection('accepted', userdata._id)} className='px-3 py-1 text-sm border border-green-500 text-green-500 rounded'>Accept</button>
+                                                                            <button onClick={() => handleConnection('rejected', userdata._id)} className='px-3 py-1 text-sm border  border-red-500 text-red-500 rounded ms-2'>Decline</button>
+
                                                                         </>
                                                                     )
                                                                 }
                                                             </>
-                                                        ) : (
+                                                        )
+                                                    }
+                                                    {
+                                                        userdata?.interest?.status == "accepted" && (
                                                             <>
-                                                                <button onClick={() => sendInsterest(userdata._id)} className='text-green-500 border border-green-500 px-5 py-2 rounded text-xs'>Send Interest</button>
+                                                                <Link className=" inline-block  text-nowrap px-3 py-2 bg-primary text-white text-xs rounded">View Profile</Link>
+                                                                <button onClick={() => chatUser(userdata._id)} className='text-green-500 border ms-2 border-green-500 px-5 py-2 rounded text-xs'>Chat</button>
                                                             </>
                                                         )
                                                     }
+                                                </>
+                                            ) : (
+                                                <>
+                                                    <button onClick={() => sendInsterest(userdata._id)} className='text-green-500 border border-green-500 px-5 py-2 rounded text-xs'>Send Interest</button>
+
                                                 </>
                                             )
                                         }

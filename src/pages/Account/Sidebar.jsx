@@ -1,7 +1,7 @@
 import { CreditCardOutlined, DashboardOutlined, EditOutlined, HeartOutlined, LogoutOutlined, MessageOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons'
 import React from 'react'
 import { FaRegHandshake } from "react-icons/fa6";
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 
 import { useUser } from './UserContext';
@@ -12,6 +12,11 @@ const Sidebar = () => {
     const navigate = useNavigate();
     const { user, loading, userLogout } = useUser();
     const [profileImage, setProfileImage] = React.useState(null);
+    const [currenturl, setCurrentUrl] = React.useState('/dashboard');
+    const location = useLocation();
+    React.useEffect(() => {
+        setCurrentUrl(location.pathname)
+    }, [location.pathname])
     React.useEffect(() => {
         if (user && user.profile_image) {
             setProfileImage(BASE_URL + user.profile_image); // Use user profile image
@@ -21,6 +26,7 @@ const Sidebar = () => {
     }, [user]);
     const handleLogout = async () => {
         await userLogout();
+        navigate('/')
     }
     return (
         <>
@@ -36,44 +42,44 @@ const Sidebar = () => {
                         </label>
 
                     </figure>
-                    <ul className='*:py-2'>
+                    <ul className='*:py-1 '>
                         <li>
-                            <Link className='flex gap-4' to={'/user/dashboard'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/user/dashboard" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/user/dashboard'} >
                                 <DashboardOutlined /> <span>Dashboard</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className='flex gap-4' to={'/user/profile'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/user/profile" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/user/profile'} >
                                 <UsergroupAddOutlined /> <span>My Profile</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className='flex gap-4' to={'/users'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/users" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/users'} >
                                 <FaRegHandshake /> <span>Browse Profiles</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className='flex gap-4' to={'/sent-proposals'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/proposals/sent" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/proposals/sent'} >
                                 <HeartOutlined /> <span>Sent Interests</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className='flex gap-4' to={'/received-proposals'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/proposals/received" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/proposals/received'} >
                                 <GiFlowerPot /> <span>Received Interests</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className='flex gap-4' to={'/subscriptions'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/subscriptions" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/subscriptions'} >
                                 <CreditCardOutlined /> <span>Donation Plan</span>
                             </Link>
                         </li>
                         <li>
-                            <Link className='flex gap-4' to={'/chat'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/chat" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/chat'} >
                                 <MessageOutlined /> <span>Chat</span>
                             </Link>
                         </li>
                         {/* <li>
-                            <Link className='flex gap-4' to={'/user/dashboard'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/user/dashboard'} >
                                 <SettingOutlined /> <span>Setting</span>
                             </Link>
                         </li> */}

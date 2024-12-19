@@ -48,7 +48,7 @@ const Dashboard = () => {
                                 <div className="grid grid-cols-12 gap-4">
                                     <div className="col-span-12 ">
                                         <div className="w-full text-white rounded-lg p-5 bg-primary">
-                                            Welcome back, {user.name + " " + user.last_name}
+                                            Welcome back, {user?.name + " " + user?.last_name}
                                         </div>
                                     </div>
                                     <div className="col-span-3 ">
@@ -63,19 +63,19 @@ const Dashboard = () => {
                                     <div className="col-span-3 ">
                                         <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl p-5">
                                             <label htmlFor=""> Interests Sent</label>
-                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user.sent_interest}</div>
+                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user?.sent_interest}</div>
                                         </div>
                                     </div>
                                     <div className="col-span-3 ">
                                         <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl p-5">
                                             <label htmlFor=""> Interests Received</label>
-                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user.received_interest}</div>
+                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user?.received_interest}</div>
                                         </div>
                                     </div>
                                     <div className="col-span-3 ">
                                         <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl p-5">
                                             <label htmlFor="">Profile Views</label>
-                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user.views}</div>
+                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user?.views}</div>
                                         </div>
                                     </div>
                                 </div>
@@ -83,7 +83,7 @@ const Dashboard = () => {
                                     <div className="col-span-12 hidden">
                                         <div className="flex gap-4">
                                             <button className='bg-primary text-white p-3 rounded'>
-                                                New Requests <small>({connections.length})</small>
+                                                New Requests <small>({connections?.length})</small>
                                             </button>
                                             <button>
                                                 Accepted Requests

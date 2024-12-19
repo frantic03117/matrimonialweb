@@ -1,7 +1,11 @@
 // import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import { useUser } from '../pages/Account/UserContext'
+import { UserOutlined } from '@ant-design/icons';
 const Header = () => {
+    const { user } = useUser();
+    console.log(user)
     return (
         <>
             <section className='bg-yellow-100/20'>
@@ -17,21 +21,39 @@ const Header = () => {
                                         <Link to={'/'} >Home</Link>
                                     </li>
                                     <li>
-                                        <Link to={'/'} >About</Link>
+                                        <Link to={'/about'} >About</Link>
                                     </li>
+                                    {
+                                        user.name && (
+                                            <>
+                                                <li>
+                                                    <Link to={'/users'} >Profiles</Link>
+                                                </li>
+                                            </>
+                                        )
+                                    }
+
                                     <li>
-                                        <Link to={'/'} >Profiles</Link>
-                                    </li>
-                                    <li>
-                                        <Link to={'/'} >Contact</Link>
+                                        <Link to={'/contact'} >Contact</Link>
                                     </li>
                                 </ul>
 
                                 <ul className="inline-flex ms-auto">
                                     <li>
-                                        <Link to={'/login'} className="bg-primary text-white px-3 py-2 rounded  text-sm  font-light uppercase btn overflow-hidden relative block">
-                                            Account
-                                        </Link>
+                                        {
+                                            (user?.name) ? (<>
+                                                <Link to={'/user/dashboard'} className="bg-primary text-white px-3 py-2 rounded  text-sm  font-light uppercase btn overflow-hidden relative block">
+                                                    <span className="inline-block bg-white text-primary leading-8 text-center rounded-full size-8">
+                                                        <UserOutlined />
+                                                    </span>  {user?.name} {user?.last_name}
+                                                </Link>
+                                            </>) : (<>
+                                                <Link to={'/login'} className="bg-primary text-white px-3 py-2 rounded  text-sm  font-light uppercase btn overflow-hidden relative block">
+                                                    Account
+                                                </Link>
+                                            </>)
+                                        }
+
                                     </li>
                                 </ul>
                             </div>

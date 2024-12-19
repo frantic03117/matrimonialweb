@@ -1,20 +1,24 @@
 // import React from 'react'
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
+import { useUser } from '../pages/Account/UserContext'
 
 const Footer = () => {
-
+    const { policies } = useUser();
     return (
         <>
-            <section className='relative top-9'>
-                <div className="w-full">
-                    <div className="container">
+            <section className='relative z-10 '>
+                <div className="w-full -mb-10">
+                    <div className="container ">
                         <div className="grid grid-cols-12">
                             <div className="col-span-1"></div>
                             <div className="col-span-10">
                                 <div className="w-full text-center text-white bg-primary p-8 rounded-lg">
-                                    <h2 className='text-xl'><span>Free support:</span> +92 (8800) 68 - 8960 &nbsp;&nbsp;|&nbsp;&nbsp; <span>Email:</span>
-                                        info@example.com</h2>
+                                    <h2 className='text-xl'><span>Free support: </span>
+                                        <div className='inline-block' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "mobile")?.description }} />
+                                        &nbsp;&nbsp;|&nbsp;&nbsp; <span>Email: </span>
+                                        <div className='inline-block' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "email")?.description }} />
+                                    </h2>
                                 </div>
                             </div>
                         </div>
@@ -43,19 +47,18 @@ const Footer = () => {
                                 <div className="col-span-3">
                                     <div className="footer-widget">
                                         <h4 className="widget-title">Support</h4>
-                                        <ul className="list-unstyled icons-listing mb-0 widget-listing">
-                                            <li><Link to="javascript:">Getting started</Link></li>
+                                        <ul className="list-unstyled *:py-2">
+                                            <li><Link to="/login">Getting started</Link></li>
                                             <li><Link to="javascript:">Chat our support</Link></li>
-                                            <li><Link to="javascript:">Help center</Link></li>
-                                            <li><Link to="javascript:">Services status</Link></li>
-                                            <li><Link to="javascript:">Report a bug</Link></li>
+                                            <li><Link to="/contact">Help center</Link></li>
+                                            <li><Link to="/contact">Report a bug</Link></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div className="lg:col-span-3 col-span-12">
                                     <div className="footer-widget">
                                         <h4 className="widget-title">Services</h4>
-                                        <ul className="list-none icons-listing mb-0 widget-listing">
+                                        <ul className="list-unstyled *:py-2">
                                             <li><Link to="/plans">Pricing</Link></li>
                                             <li><Link to="/contact">Support</Link></li>
                                             <li><Link to="javascript:">Sales and Refunds</Link></li>
@@ -67,7 +70,7 @@ const Footer = () => {
                                 <div className="col-span-3">
                                     <div className="footer-widget">
                                         <h4 className="widget-title">Policy</h4>
-                                        <ul className="list-unstyled icons-listing mb-0 widget-listing">
+                                        <ul className="list-unstyled *:py-2">
                                             <li><Link to="/policy/privacy-policy">Privacy Policy</Link></li>
                                             <li><Link to="/policy/terms-conditions">Terms &amp; Conditions</Link></li>
                                             <li><Link to="/policy/refund-cancellation"> Refunds &amp; Cancellations</Link></li>
@@ -79,21 +82,15 @@ const Footer = () => {
                                     <div className="footer-widget">
                                         <h4 className="widget-title">Contact Us</h4>
                                         <div className="footer-widget-contact">
-                                            <ul className="list-unstyled">
+                                            <ul className="list-unstyled *:py-2">
                                                 <li>
-                                                    <p>
-                                                        Surajmal Memorial Education Society, C-4, Janakpuri, New Delhi-110058
-                                                    </p>
+                                                    <div className='inline-block font-light' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "address")?.description }} />
                                                 </li>
                                                 <li>
-                                                    <div><i className="bi bi-phone"></i></div>
-                                                    <div><Link to="tel:+1234567899">011-45656183</Link></div>
+                                                    <div className='inline-block font-light' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "mobile")?.description }} />
                                                 </li>
                                                 <li>
-                                                    <div><i className="bi bi-envelope"></i></div>
-                                                    <div><Link
-                                                        to="mailto:matrimonysmes@msijanakpuri.com">matrimonysmes@msijan.com</Link>
-                                                    </div>
+                                                    <div className='inline-block font-light' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "email")?.description }} />
                                                 </li>
                                             </ul>
                                         </div>

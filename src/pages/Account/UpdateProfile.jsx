@@ -11,13 +11,16 @@ const UpdateProfile = () => {
     const [fdata, setFdata] = React.useState({});
     const [mdata, setMdata] = React.useState([]);
     const token = localStorage.getItem(usertoken);
-    const [isload, setLoad] = React.useState(false);
+    const [isload, setLoad] = React.useState(true);
     const getmdata = async () => {
         try {
+            setLoad(true)
             const resp = await axios.get(API_URL + "surajmal/core-values");
             setMdata(resp.data.data);
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoad(false)
         }
     }
     const [allfields, setAllFields] = React.useState({});
@@ -30,7 +33,7 @@ const UpdateProfile = () => {
         getmdata();
     }, []);
     React.useEffect(() => {
-        if (allfields) {
+        if (allfields && user && !loading) {
             let arr = {}
             Object.entries(allfields).map(([k, v]) => {
                 if (!['city', 'diet', 'occupation', 'state', 'city', 'gautra_avoided'].includes(k)) {
@@ -43,12 +46,13 @@ const UpdateProfile = () => {
             });
             setFdata(arr);
         }
-    }, [allfields]);
+    }, [allfields, user, loading]);
     const handleFdata = (e) => {
         setFdata((prev) => {
             return { ...prev, [e.target.name]: e.target.value }
         })
     }
+
     const updateProfile = async () => {
         try {
             setLoad(true);
@@ -114,6 +118,27 @@ const UpdateProfile = () => {
                                             <div className="form-group">
                                                 <label htmlFor="">Enter Email</label>
                                                 <input type="text" name="email" onChange={handleFdata} value={fdata?.email} id="" className="form-control" />
+                                            </div>
+                                        </div>
+                                        <div className="col-span-3">
+                                            <div className="form-group">
+                                                <label htmlFor="">Aadhar No</label>
+
+                                                {
+                                                    user.adhar_verify ? (
+                                                        <>
+                                                            <div className="w-full form-control">
+                                                                {fdata?.adhar_no}
+                                                            </div>
+                                                        </>
+                                                    ) :
+                                                        (
+                                                            <>
+                                                                <input type="text" name="aadhar_no" onChange={handleFdata} value={fdata?.adhar_no} id="" className="form-control" />
+
+                                                            </>
+                                                        )
+                                                }
                                             </div>
                                         </div>
                                         <div className="col-span-3">

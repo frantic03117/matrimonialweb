@@ -12,6 +12,10 @@ import FindUsers from "./pages/Account/FindUsers";
 import Plans from "./pages/Account/Plans";
 import SentProposals from "./pages/Account/SentProposals";
 import ReceivedProposals from "./pages/Account/ReceivedProposals";
+import Contact from "./pages/Contact";
+import About from "./pages/About";
+import Chat from "./pages/Account/Chat";
+import UserChat from "./pages/Account/UserChat";
 
 function App() {
   const ThemeRoutes = createBrowserRouter(
@@ -20,14 +24,17 @@ function App() {
         <Route path='/' element={<Layout />} >
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/about" element={<About />} />
         </Route>
         <Route path="/" element={<AccountLayout />}>
           <Route path="/user/dashboard" element={<Dashboard />} />
           <Route path="/user/profile" element={<UpdateProfile />} />
           <Route path="/users" element={<FindUsers />} />
           <Route path="/subscriptions" element={<Plans />} />
-          <Route path="/sent-proposals" element={<SentProposals />} />
-          <Route path="/received-proposals" element={<ReceivedProposals />} />
+          <Route path="/proposals/:type" element={<SentProposals />} />
+          <Route path="/chat" element={<UserChat />} />
+
         </Route>
       </>
     )

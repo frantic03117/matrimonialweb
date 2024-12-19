@@ -9,6 +9,7 @@ export const UserProvider = ({ children }) => {
     const [user, setUser] = useState({ filledFieldsCount: 0, totalColumns: 1 });
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [policies, setPolicies] = useState([]);
     const fetchUser = async () => {
         try {
             setLoading(true);
@@ -28,15 +29,27 @@ export const UserProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    const fetchpolicies = async () => {
+        try {
+            setLoading(true);
+            const items = await axios.get(API_URL + "policy");
+            setPolicies(items.data.data);
+        } catch (err) {
+            console.log(err);
+        } finally {
+            setLoading(false);
+        }
+    }
     const userLogout = () => {
         localStorage.clear();
-        navigate('/');
+        // navigate('/');
     }
     useEffect(() => {
+        fetchpolicies();
         fetchUser();
     }, []);
     return (
-        <UserContext.Provider value={{ user, setUser, loading, error, fetchUser, userLogout }}>
+        <UserContext.Provider value={{ user, setUser, loading, error, fetchUser, userLogout, policies }}>
             {children}
         </UserContext.Provider>
     );
