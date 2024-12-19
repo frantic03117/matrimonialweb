@@ -36,12 +36,14 @@ const UpdateProfile = () => {
         if (allfields && user && !loading) {
             let arr = {}
             Object.entries(allfields).map(([k, v]) => {
-                if (!['city', 'diet', 'occupation', 'state', 'city', 'gautra_avoided'].includes(k)) {
-                    arr[k] = user[k]
-                } else if (['city', 'diet', 'occupation', 'state', 'city'].includes(k)) {
-                    arr[k] = user[k]?._id
-                } else if (k == "gautra_avoided") {
-                    arr[k] = user[k] ? user[k].join(',') : ""
+                if (!['is_deleted', 'is_rejected'].includes(k)) {
+                    if (!['city', 'diet', 'occupation', 'state', 'city', 'gautra_avoided'].includes(k)) {
+                        arr[k] = user[k]
+                    } else if (['city', 'diet', 'occupation', 'state', 'city'].includes(k)) {
+                        arr[k] = user[k]?._id
+                    } else if (k == "gautra_avoided") {
+                        arr[k] = user[k] ? user[k].join(',') : ""
+                    }
                 }
             });
             setFdata(arr);
@@ -134,7 +136,7 @@ const UpdateProfile = () => {
                                                     ) :
                                                         (
                                                             <>
-                                                                <input type="text" name="aadhar_no" onChange={handleFdata} value={fdata?.adhar_no} id="" className="form-control" />
+                                                                <input type="text" name="adhar_no" onChange={handleFdata} value={fdata?.adhar_no} id="" className="form-control" />
 
                                                             </>
                                                         )

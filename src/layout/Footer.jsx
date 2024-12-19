@@ -73,7 +73,7 @@ const Footer = () => {
                                         <ul className="list-unstyled *:py-2">
                                             <li><Link to="/policy/privacy-policy">Privacy Policy</Link></li>
                                             <li><Link to="/policy/terms-conditions">Terms &amp; Conditions</Link></li>
-                                            <li><Link to="/policy/refund-cancellation"> Refunds &amp; Cancellations</Link></li>
+                                            <li><Link to="/policy/refunds-cancellations"> Refunds &amp; Cancellations</Link></li>
                                             <li><Link to="/policy/delete-policy"> Delete Policy</Link></li>
                                         </ul>
                                     </div>
@@ -100,16 +100,9 @@ const Footer = () => {
                         </div>
                         <div className="col-span-12">
                             <div className="footer-text">
-                                <p className='text-sm  font-light tracking-widest leading-6'><span className="font-bold text-dark">Disclaimer</span> : It has come to our attention that
-                                    fraudulent
-                                    activities have been discovered involving individuals pretending to be employees or authorized
-                                    representatives of Suraj Sujan Matrimony to defraud our customers. Please note that the only
-                                    legitimate domain name for Suraj Sujan Matrimony is www.surajsujanmatrimony.in. We urge you to
-                                    verify any matrimonial opportunities related to Suraj Sujan Matrimony by reaching out to us
-                                    through the contact details provided below. We also request that you do not respond with any
-                                    personal information if you are uncertain about the communication and refrain from sending any
-                                    money to third parties until you have verified the information with us. For any inquiries or to
-                                    report suspicious behavior, please contact us at support@surajsujanmatrimony.in.</p>
+                                <p className='text-sm  font-light tracking-widest leading-6'><span className="font-bold text-dark">Disclaimer</span> :
+                                    <div className='inline-block font-light' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "diclaimer")?.description }} />
+                                </p>
                             </div>
                         </div>
                     </div>

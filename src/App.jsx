@@ -16,6 +16,7 @@ import Contact from "./pages/Contact";
 import About from "./pages/About";
 import Chat from "./pages/Account/Chat";
 import UserChat from "./pages/Account/UserChat";
+import AppPolicy from "./pages/Policy";
 
 function App() {
   const ThemeRoutes = createBrowserRouter(
@@ -26,6 +27,7 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
+          <Route path="/policy/:url" element={<AppPolicy />} />
         </Route>
         <Route path="/" element={<AccountLayout />}>
           <Route path="/user/dashboard" element={<Dashboard />} />
