@@ -2,6 +2,7 @@
 import { Link } from 'react-router-dom'
 import logo from '../assets/logo.png'
 import { useUser } from '../pages/Account/UserContext'
+import { FacebookFilled,  GoogleSquareFilled, InstagramFilled, TwitterSquareFilled } from '@ant-design/icons';
 
 const Footer = () => {
     const { policies } = useUser();
@@ -14,9 +15,9 @@ const Footer = () => {
                             <div className="col-span-1"></div>
                             <div className="col-span-10">
                                 <div className="w-full text-center text-white bg-primary p-8 rounded-lg">
-                                    <h2 className='text-xl'><span>Free support: </span>
+                                    <h2 className='text-xl '><span className='cursive'>Free support: </span>
                                         <div className='inline-block' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "mobile")?.description }} />
-                                        &nbsp;&nbsp;|&nbsp;&nbsp; <span>Email: </span>
+                                        &nbsp;&nbsp;|&nbsp;&nbsp; <span className='cursive'>Email: </span>
                                         <div className='inline-block' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "email")?.description }} />
                                     </h2>
                                 </div>
@@ -34,9 +35,32 @@ const Footer = () => {
                                     <div className="footer-widgets">
                                         <div className="logimg mb-4"><img src={logo}
                                             width="90" alt="" className="img-fluid" /></div>
-                                        <p className="footer-text text-md tracking-wider font-light">Connecting people with precision and care. We strive to build
-                                            meaningful relationships through trust and dedication, ensuring a seamless and
-                                            fulfilling experience.</p>
+                                        <ul className='flex gap-4'>
+                                            <li>
+                                                <Link to={policies.find(obj => obj.url == "facebook")?.description?.replace(/<\/?p>/g, "")} className="inline-block size-10 rounded-full border border-primary text-center leading-10 text-primary hover:bg-primary hover:text-white ">
+                                                    <FacebookFilled />
+                                                </Link>
+
+                                            </li>
+                                            <li>
+                                                <Link  to={policies.find(obj => obj.url == "twitter")?.description?.replace(/<\/?p>/g, "")} className='inline-block size-10 rounded-full border border-primary text-center leading-10 text-primary hover:bg-primary hover:text-white '>
+                                                    <TwitterSquareFilled />
+                                                </Link>
+
+                                            </li>
+                                            <li>
+                                                <Link to={policies.find(obj => obj.url == "instagram")?.description?.replace(/<\/?p>/g, "")} className="inline-block size-10 rounded-full border border-primary text-center leading-10 text-primary hover:bg-primary hover:text-white ">
+                                                    <InstagramFilled />
+                                                </Link>
+
+                                            </li>
+                                            <li>
+                                                <Link to={policies.find(obj => obj.url == "email")?.description?.replace(/<\/?p>/g, "")} className="inline-block size-10 rounded-full border border-primary text-center leading-10 text-primary hover:bg-primary hover:text-white ">
+                                                    <GoogleSquareFilled />
+                                                </Link>
+
+                                            </li>
+                                        </ul>
 
                                     </div>
                                 </div>
@@ -46,41 +70,39 @@ const Footer = () => {
                             <div className="grid grid-cols-12 gap-4">
                                 <div className="col-span-3">
                                     <div className="footer-widget">
-                                        <h4 className="widget-title">Support</h4>
+                                        <h4 className="widget-title cursive text-2xl  font-bold text-primary">Support</h4>
                                         <ul className="list-unstyled *:py-2">
                                             <li><Link to="/login">Getting started</Link></li>
-                                            <li><Link to="javascript:">Chat our support</Link></li>
+
                                             <li><Link to="/contact">Help center</Link></li>
-                                            <li><Link to="/contact">Report a bug</Link></li>
+
                                         </ul>
                                     </div>
                                 </div>
                                 <div className="lg:col-span-3 col-span-12">
                                     <div className="footer-widget">
-                                        <h4 className="widget-title">Services</h4>
+                                        <h4 className="widget-title cursive text-2xl  font-bold text-primary">Services</h4>
                                         <ul className="list-unstyled *:py-2">
                                             <li><Link to="/plans">Pricing</Link></li>
                                             <li><Link to="/contact">Support</Link></li>
-                                            <li><Link to="javascript:">Sales and Refunds</Link></li>
-                                            <li><Link to="javascript:">Legal</Link></li>
-                                            <li><Link to="javascript:">Testimonials &amp; Faq’s</Link></li>
+
+                                            <li><Link to="/faqs">Faq’s</Link></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div className="col-span-3">
                                     <div className="footer-widget">
-                                        <h4 className="widget-title">Policy</h4>
+                                        <h4 className="widget-title cursive text-2xl  font-bold text-primary">Policy</h4>
                                         <ul className="list-unstyled *:py-2">
                                             <li><Link to="/policy/privacy-policy">Privacy Policy</Link></li>
                                             <li><Link to="/policy/terms-conditions">Terms &amp; Conditions</Link></li>
                                             <li><Link to="/policy/refunds-cancellations"> Refunds &amp; Cancellations</Link></li>
-                                            <li><Link to="/policy/delete-policy"> Delete Policy</Link></li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div className="col-span-3">
                                     <div className="footer-widget">
-                                        <h4 className="widget-title">Contact Us</h4>
+                                        <h4 className="widget-title cursive text-2xl  font-bold text-primary">Contact Us</h4>
                                         <div className="footer-widget-contact">
                                             <ul className="list-unstyled *:py-2">
                                                 <li>
@@ -98,10 +120,10 @@ const Footer = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-span-12">
+                        <div className="col-span-12 border-t border-primary pb-4">
                             <div className="footer-text">
-                                <p className='text-sm  font-light tracking-widest leading-6'><span className="font-bold text-dark">Disclaimer</span> :
-                                    <div className='inline-block font-light' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "diclaimer")?.description }} />
+                                <p className='text-sm pt-5 font-light tracking-widest leading-6'><span className="font-bold text-dark">Disclaimer</span> :
+                                    <div className='inline-block *:pb-5  font-light' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "diclaimer")?.description }} />
                                 </p>
                             </div>
                         </div>

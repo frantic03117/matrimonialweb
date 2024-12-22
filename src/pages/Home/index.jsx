@@ -1,7 +1,7 @@
-import React from 'react'
+// import React from 'react'
 import Slider from "react-slick";
-import banner1 from '../../assets/banner1.jpg';
-import banner2 from '../../assets/banner2.jpg';
+// import banner1 from '../../assets/banner1.jpg';
+// import banner2 from '../../assets/banner2.jpg';
 import google from '../../assets/google.png';
 import one from '../../assets/1.jpg';
 import hall from '../../assets/hall.png'
@@ -16,8 +16,10 @@ import Testimonials from "./Testimonials";
 import WhyUs from "./WhyUs";
 import HowItWorks from "./HowItWorks";
 import ContactForm from './ContactForm';
+import { useUser } from '../Account/UserContext';
+import { BASE_URL } from '../../utils';
 const Home = () => {
-
+  const {banners} = useUser();
   const settings = {
     dots: true,
     infinite: true,
@@ -34,12 +36,17 @@ const Home = () => {
       <section className="overflow-hidden relative">
         <div className="w-full" id="hero_banner" >
           <Slider {...settings}>
-            <div className="w-full">
-              <img src={banner1} alt="" className="w-full" />
+            {
+              banners.map(bnr => (
+                <>
+                  <div className="w-full">
+              <img src={BASE_URL + bnr.image} alt="" className="w-full" />
             </div>
-            <div className="w-full">
-              <img src={banner2} alt="" className="w-full" />
-            </div>
+                </>
+              ))
+            }
+          
+          
           </Slider>
         </div>
         <div className="w-full flex items-center justify-center bg-black/50 hero_form absolute top-0 z-50 start-0 h-full">

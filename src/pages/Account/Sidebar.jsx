@@ -1,4 +1,4 @@
-import { CreditCardOutlined, DashboardOutlined, EditOutlined, HeartOutlined, LogoutOutlined, MessageOutlined, SettingOutlined, UsergroupAddOutlined } from '@ant-design/icons'
+import { CreditCardOutlined, DashboardOutlined, EditOutlined, HeartOutlined, LogoutOutlined, MessageOutlined,  UsergroupAddOutlined } from '@ant-design/icons'
 import React from 'react'
 import { FaRegHandshake } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -10,7 +10,7 @@ import { GiFlowerPot } from 'react-icons/gi';
 
 const Sidebar = () => {
     const navigate = useNavigate();
-    const { user, loading, userLogout } = useUser();
+    const { user,  userLogout } = useUser();
     const [profileImage, setProfileImage] = React.useState(null);
     const [currenturl, setCurrentUrl] = React.useState('/dashboard');
     const location = useLocation();

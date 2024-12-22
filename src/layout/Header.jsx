@@ -13,7 +13,7 @@ const Header = () => {
                     <div className="grid grid-cols-12">
                         <div className="col-span-12">
                             <div className="flex justify-between items-center">
-                                <div className="w-16">
+                                <div className="w-16 py-3">
                                     <img src={logo} className='w-full' alt="" />
                                 </div>
                                 <ul className="inline-flex gap-5 relative start-28 navlinks mx-auto">
@@ -33,6 +33,9 @@ const Header = () => {
                                         )
                                     }
 
+                                    <li>
+                                        <Link to={'/faqs'} >Faqs</Link>
+                                    </li>
                                     <li>
                                         <Link to={'/contact'} >Contact</Link>
                                     </li>

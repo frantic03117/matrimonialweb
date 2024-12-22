@@ -11,12 +11,11 @@ import UpdateProfile from "./pages/Account/UpdateProfile";
 import FindUsers from "./pages/Account/FindUsers";
 import Plans from "./pages/Account/Plans";
 import SentProposals from "./pages/Account/SentProposals";
-import ReceivedProposals from "./pages/Account/ReceivedProposals";
 import Contact from "./pages/Contact";
 import About from "./pages/About";
-import Chat from "./pages/Account/Chat";
 import UserChat from "./pages/Account/UserChat";
 import AppPolicy from "./pages/Policy";
+import Faqs from "./pages/Faq";
 
 function App() {
   const ThemeRoutes = createBrowserRouter(
@@ -28,6 +27,7 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/policy/:url" element={<AppPolicy />} />
+          <Route path="/faqs" element={<Faqs/>} />
         </Route>
         <Route path="/" element={<AccountLayout />}>
           <Route path="/user/dashboard" element={<Dashboard />} />
