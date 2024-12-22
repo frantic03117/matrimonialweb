@@ -1,14 +1,15 @@
 import React from 'react'
 import { API_URL, usertoken } from '../../utils';
 import axios from 'axios';
-import { useUser } from './UserContext';
+// import { useUser } from './UserContext';
 import UserBox from './UserBox';
 import { useParams } from 'react-router-dom';
 import Loading from '../../components/Loading';
+import { toast } from 'react-toastify';
 
 const SentProposals = () => {
 
-    const { user } = useUser();
+    // const { user } = useUser();
     const { type } = useParams();
     const [users, setUsers] = React.useState([]);
     const [load, setLoad] = React.useState(true);
@@ -41,6 +42,9 @@ const SentProposals = () => {
                     Authorization: "Bearer " + token
                 }
             });
+            if (resp.data.success == "1") {
+                toast.success('Updated successfully')
+            }
             getusers();
         } catch (err) {
             console.log(err);

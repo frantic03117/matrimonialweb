@@ -3,10 +3,11 @@ import UserBox from './UserBox'
 import axios from 'axios';
 import { API_URL, usertoken } from '../../utils';
 import Loading from '../../components/Loading';
-import { useUser } from './UserContext';
+// import { useUser } from './UserContext';
+import { toast } from 'react-toastify';
 
 const FindUsers = () => {
-    const { user } = useUser();
+    // const { user } = useUser();
     const [users, setUsers] = React.useState([]);
     const [load, setLoad] = React.useState(true);
     const token = localStorage.getItem(usertoken);
@@ -33,6 +34,9 @@ const FindUsers = () => {
                     Authorization: "Bearer " + token
                 }
             });
+            if(resp.data.success == "1"){
+                toast.success('Updated successfully')
+            }
             getusers();
         } catch (err) {
             console.log(err);
@@ -48,6 +52,9 @@ const FindUsers = () => {
                     Authorization: "Bearer " + token
                 }
             });
+            if(resp.data.success == "1"){
+                toast.success('Updated successfully')
+            }
             getusers();
         } catch (err) {
             console.log(err);
