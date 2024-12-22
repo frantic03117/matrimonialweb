@@ -18,6 +18,7 @@ import HowItWorks from "./HowItWorks";
 import ContactForm from './ContactForm';
 import { useUser } from '../Account/UserContext';
 import { BASE_URL } from '../../utils';
+import { Link } from "react-router-dom";
 const Home = () => {
   const {banners} = useUser();
   const settings = {
@@ -68,9 +69,9 @@ const Home = () => {
                     <button className=" w-40 border border-white btn rounded p-3 bg-white">
                       <img src={google} alt="" className="w-full" />
                     </button>
-                    <button className="w-40 py-3 bg-primary text-white rounded btn">
+                    <Link to={'/login'} className="w-40 py-3 bg-primary text-white rounded btn">
                       Get Started
-                    </button>
+                    </Link>
                   </div>
                 </div>
               </div>
@@ -87,7 +88,7 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-12 gap-6">
             <div className="col-span-3">
-              <QuickAccess image={one} icon={hall} title={'Free Signup'} />
+              <QuickAccess image={one} icon={hall} title={'Easy Signup'} />
             </div>
             <div className="col-span-3">
               <QuickAccess image={two} icon={couple} title={'Browse Profiles'} />
