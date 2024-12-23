@@ -29,8 +29,8 @@ const ContactForm = () => {
     return (
         <>
 
-            <div className="w-full  contactform relative p-10 bg-white/65 backdrop-blur-sm ">
-                <h4 className="text-[2rem] text-primary font-bold mb-4">How can we help you?</h4>
+            <div className="w-full  contactform relative lg:p-10 p-4 bg-white/65 backdrop-blur-sm ">
+                <h4 className="lg:text-[2rem] text-[1.5rem] text-primary font-bold mb-4">How can we help you?</h4>
                 {
                     msg && (
                         <>

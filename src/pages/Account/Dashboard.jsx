@@ -43,39 +43,39 @@ const Dashboard = () => {
                 ) : (
                     <>
 
-                        <section className=' h-full px-10'>
+                        <section className=' h-full lg:px-10 p-0'>
                             <div className="container">
                                 <div className="grid grid-cols-12 gap-4">
                                     <div className="col-span-12 ">
-                                        <div className="w-full text-white rounded-lg p-5 bg-primary">
-                                            Welcome back, {user?.name + " " + user?.last_name}
+                                        <div className="w-full text-white rounded-lg lg:p-5 p-2 bg-primary">
+                                            Welcome back, <span className="cursive underline tracking-widest font-semibold">{user?.name + " " + user?.last_name}</span>
                                         </div>
                                     </div>
-                                    <div className="col-span-3 ">
-                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl p-5">
-                                            <label htmlFor="">Profile Completion</label>
+                                    <div className="lg:col-span-3 col-span-6 ">
+                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl lg:p-5 p-2">
+                                            <label htmlFor="" className=' h-12 block text-primary font-semibold cursive tracking-widest uppercase text-sm'>Profile Completion</label>
 
-                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">
+                                            <div className=" profile_completion cursive flex items-start justify-center">
                                                 {((user?.filledFieldsCount / (user?.totalColumns ?? 1)) * 100).toFixed(0)}%
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="col-span-3 ">
-                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl p-5">
-                                            <label htmlFor=""> Interests Sent</label>
-                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user?.sent_interest}</div>
+                                    <div className="lg:col-span-3 col-span-6 ">
+                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl lg:p-5 p-2">
+                                            <label htmlFor="" className=' h-12 block text-primary font-semibold cursive tracking-widest uppercase text-sm'> Interests Sent</label>
+                                            <div className=" profile_completion cursive flex items-start justify-center">{user?.sent_interest}</div>
                                         </div>
                                     </div>
-                                    <div className="col-span-3 ">
-                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl p-5">
-                                            <label htmlFor=""> Interests Received</label>
-                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user?.received_interest}</div>
+                                    <div className="lg:col-span-3 col-span-6 ">
+                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl lg:p-5 p-2">
+                                            <label htmlFor="" className=' h-12 block text-primary font-semibold cursive tracking-widest uppercase text-sm'> Interests Received</label>
+                                            <div className=" profile_completion cursive flex items-start justify-center">{user?.received_interest}</div>
                                         </div>
                                     </div>
-                                    <div className="col-span-3 ">
-                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl p-5">
-                                            <label htmlFor="">Profile Views</label>
-                                            <div className="size-24 profile_completion mx-auto  font-bold  leading-[4] text-center text-white text-xl">{user?.views}</div>
+                                    <div className="lg:col-span-3 col-span-6 ">
+                                        <div className="w-full h-full bg-white border text-center border-primary/30 shadow-lg shadow-primary/50 rounded-xl lg:p-5 p-2">
+                                            <label htmlFor="" className=' h-12 block text-primary font-semibold cursive tracking-widest uppercase text-sm'>Profile Views</label>
+                                            <div className=" profile_completion cursive flex items-start justify-center">{user?.views}</div>
                                         </div>
                                     </div>
                                 </div>

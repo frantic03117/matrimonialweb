@@ -38,10 +38,10 @@ const UserBox = ({ userdata, sendInsterest, handleWishlist, handleConnection = (
 
                     <div className="w-full p-5 rounded-xl shadow-sm border border-primary/30 shadow-gray-900 bg-white">
                         <div className="grid grid-cols-12 gap-4">
-                            <div className="col-span-2">
+                            <div className="lg:col-span-2 col-span-12">
                                 <img src={profileimage} alt="" className=" size-32 rounded-xl" />
                             </div>
-                            <div className="col-span-10 relative">
+                            <div className="lg:col-span-10 col-span-12 relative">
                                 <div className="w-full relative">
                                     {
                                         userdata?.favourite ? (
@@ -61,7 +61,7 @@ const UserBox = ({ userdata, sendInsterest, handleWishlist, handleConnection = (
                                     }
 
                                     <h4 className='text-primary text-lg font-bold'>{userdata.name} {userdata.last_name ?? ""}</h4>
-                                    <ul className='list-disc font-light flex gap-5 list-inside text-primary'>
+                                    <ul className='list-disc font-light flex flex-wrap lg:gap-5 gap-3 list-inside text-primary'>
                                         <li>
                                             <strong>City </strong> <span>{userdata.city?.title ?? "NA"}</span>
                                         </li>

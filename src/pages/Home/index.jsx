@@ -20,7 +20,7 @@ import { useUser } from '../Account/UserContext';
 import { BASE_URL } from '../../utils';
 import { Link } from "react-router-dom";
 const Home = () => {
-  const {banners} = useUser();
+  const { banners } = useUser();
   const settings = {
     dots: true,
     infinite: true,
@@ -35,32 +35,34 @@ const Home = () => {
   return (
     <>
       <section className="overflow-hidden relative">
-        <div className="w-full" id="hero_banner" >
+        <div className="w-full overflow-hidden" id="hero_banner" >
           <Slider {...settings}>
             {
               banners.map(bnr => (
                 <>
                   <div className="w-full">
-              <img src={BASE_URL + bnr.image} alt="" className="w-full" />
-            </div>
+                    <img src={BASE_URL + bnr.image} alt="" className="w-full" />
+                  </div>
                 </>
               ))
             }
-          
-          
+
+
           </Slider>
         </div>
         <div className="w-full flex items-center justify-center bg-black/50 hero_form absolute top-0 z-50 start-0 h-full">
           <div className="container w-full">
             <div className="grid grid-cols-12 items-center gap-4">
-              <div className="col-span-5">
-                <ContactForm />
+              <div className="lg:col-span-5 col-span-12">
+                <div className="w-full lg:block hidden">
+                  <ContactForm />
+                </div>
               </div>
-              <div className="col-span-1"></div>
-              <div className="col-span-6">
-                <div className="w-full text-white">
-                  <h2 className="cursive text-[3rem] mb-5 font-bold">
-                    Find your perfect soul Mate!
+
+              <div className="lg:col-span-7 col-span-12 ">
+                <div className="w-full text-white lg:ps-20 p-4">
+                  <h2 className="cursive lg:text-[3rem] text-[1.5rem] mb-5 font-bold">
+                    Find your <br></br> perfect soul Mate!
                   </h2>
                   <p className="mb-10 hero_p">
                     While perfection is an unattainable ideal, in this imagined partnership, we would complement each other in a beautifully imperfect harmony, bound by the threads of mutual respect, admiration, and love.
@@ -87,16 +89,16 @@ const Home = () => {
             </h2>
           </div>
           <div className="grid grid-cols-12 gap-6">
-            <div className="col-span-3">
+            <div className="lg:col-span-3 col-span-6">
               <QuickAccess image={one} icon={hall} title={'Easy Signup'} />
             </div>
-            <div className="col-span-3">
+            <div className="lg:col-span-3 col-span-6">
               <QuickAccess image={two} icon={couple} title={'Browse Profiles'} />
             </div>
-            <div className="col-span-3">
+            <div className="lg:col-span-3 col-span-6">
               <QuickAccess image={three} icon={icon3} title={'Blog & Articles'} />
             </div>
-            <div className="col-span-3">
+            <div className="lg:col-span-3 col-span-6">
               <QuickAccess image={four} icon={icon4} title={'Success Stories'} />
             </div>
 

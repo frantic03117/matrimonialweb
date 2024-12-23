@@ -1,11 +1,20 @@
 import axios from 'axios';
 import React from 'react'
-import { API_URL } from '../../utils';
+import { API_URL, usertoken } from '../../utils';
 import Loading from '../../components/Loading';
 
 const Plans = () => {
     const [subs, setSubs] = React.useState([]);
     const [loading, setLoading] = React.useState(true);
+    const token = localStorage.getItem(usertoken);
+    const purchaseSubscription = async (id) => {
+        const resp = await axios.post(API_URL + "cart", { id, request_from: "Web" }, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
+        window.open(resp.data.url);
+    }
     const getsubs = async () => {
         try {
             setLoading(true)
@@ -37,7 +46,7 @@ const Plans = () => {
                                 <>
 
 
-                                    <div className="col-span-4">
+                                    <div className="lg:col-span-4 col-span-12" >
                                         <div className="w-full px-5  ">
                                             <div className="w-full">
 
@@ -64,7 +73,7 @@ const Plans = () => {
                                                     </div>
                                                 </div>
                                                 <div className="subcription_buttons relative -top-10 flex items-center">
-                                                    <button className="size-20  animate-bounce text-white mx-auto relative rounded-full button_1 bg-primary">
+                                                    <button onClick={() => purchaseSubscription(itm._id)} className="size-20  animate-bounce text-white mx-auto relative rounded-full button_1 bg-primary">
                                                         Buy
                                                     </button>
                                                 </div>

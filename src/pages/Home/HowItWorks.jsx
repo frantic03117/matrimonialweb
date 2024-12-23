@@ -10,14 +10,14 @@ import icon6 from '../../assets/wedding-couple.png'
 const HowItWorks = () => {
     return (
         <>
-            <section className='py-20'>
+            <section className='py-20 relative'>
                 <div className="container">
                     <div className="w-full text-center">
                         <h2 className='section_title'>
                             How it works
                         </h2>
                     </div>
-                  
+
                 </div>
                 <WorkFlow isOdd={false} title={'Register'} icon={icon1} desc={"Start your journey toward finding your perfect life partner. Sign up today to create your profile and connect with thousands of eligible matches tailored to your preferences."} />
                 <WorkFlow isOdd={true} title={'Find your Match'} icon={icon2} desc={"Start your journey toward finding your perfect life partner. Sign up today to create your profile and connect with thousands of eligible matches tailored to your preferences."} />

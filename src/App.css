@@ -68,6 +68,8 @@ body {
 
 .container {
   margin: 0 auto;
+  max-width: 1250px;
+  padding: 0 2rem;
 }
 
 .quick_access {
@@ -247,12 +249,15 @@ body {
 
 .profile_completion {
   margin: 0 auto;
-  display: table;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 100px;
   height: 100px;
   border-radius: 50%;
   border: 10px solid #ffffff;
-  vertical-align: middle;
+  color: #fff;
+  font-size: 20px;
   position: relative;
   box-shadow: 0px 0px 32px -7px #b8b8b8;
   background: linear-gradient(45deg, #0027ff, #ff0074);
@@ -312,8 +317,9 @@ body {
   border: 1px solid #fff;
   border-radius: 50%;
 }
+
 .contactPage::before {
-  content: "";
+  /* content: ""; */
   position: absolute;
   bottom: -51px;
   left: 0;
@@ -325,6 +331,7 @@ body {
   z-index: 3;
   rotate: 180deg;
 }
+
 img {
   max-width: 100%;
 }
@@ -338,6 +345,7 @@ img {
   top: 0px;
   border-radius: 15px;
 }
+
 .ab-wel-2 {
   width: 80%;
   height: 300px;
@@ -357,9 +365,11 @@ img {
   border-bottom-color: initial;
   border-radius: 0px 100px 15px;
 }
+
 .ab-wel-lhs span {
   position: absolute;
 }
+
 .ab-wel-3 {
   width: 100px;
   height: 100px;
@@ -380,4 +390,78 @@ img {
   font-size: 15px;
   font-weight: 500;
   line-height: 25px;
+}
+
+@media (max-width: 998px) {
+  .section_title {
+    font-size: 1.3rem;
+  }
+
+  .quick_access {
+    position: relative;
+    border-radius: 1rem;
+    overflow: hidden;
+    height: 250px;
+  }
+
+  .whyUs::after {
+    content: "";
+    position: absolute;
+    background: url(/src/assets/why-us.png);
+    width: 335px;
+    height: 230px;
+    background-size: cover;
+    left: calc(50% - 169px);
+    top: -147px;
+  }
+
+  .workflow:not(:last-of-type)::after {
+    right: 0;
+    top: 20%;
+    left: 100%;
+    background: red;
+    display: none;
+  }
+
+  .workflow::before {
+    left: 98%;
+    right: 0;
+    display: none;
+  }
+
+  .container {
+    margin: 0 auto;
+
+    padding: 0 1.5rem;
+  }
+
+  .profile_completion {
+    font-size: 16px;
+    width: 60px;
+    height: 60px;
+
+  }
+
+  .navlinkmobile a {
+    display: block;
+    padding: 10px 5px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: relative;
+    font-weight: 200;
+
+
+  }
+
+  .aboutUs h2 {
+    font-family: "Cinzel Decorative", serif !important;
+    font-size: 1.5rem;
+    color: #66451c;
+  }
+
+  .ab-wel-rhs p {
+    font-size: 14px;
+    font-weight: 300;
+    line-height: 20px;
+  }
 }

@@ -9,6 +9,7 @@ import { API_URL, usertoken } from "../../utils"
 import React from "react"
 import axios from "axios"
 import Loading from "../../components/Loading"
+import { ToastContainer } from "react-toastify"
 
 const AccountLayout = () => {
     const token = localStorage.getItem(usertoken);
@@ -42,6 +43,19 @@ const AccountLayout = () => {
     }, [location.pathname])
     return (
         <>
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick={false}
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="colored"
+
+            />
             {
                 load ? (
                     <>
@@ -59,12 +73,12 @@ const AccountLayout = () => {
                                         <section className="py-10 bg-yellow-50/90">
                                             <div className="container">
                                                 <div className="grid grid-cols-12 gap-6">
-                                                    <div className="col-span-3">
+                                                    <div className="lg:col-span-3 col-span-12">
                                                         <div className="w-full sticky top-0">
                                                             <Sidebar />
                                                         </div>
                                                     </div>
-                                                    <div className="col-span-9">
+                                                    <div className="lg:col-span-9 col-span-12">
                                                         <Outlet />
                                                     </div>
                                                 </div>

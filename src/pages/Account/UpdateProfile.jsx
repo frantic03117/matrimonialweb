@@ -95,19 +95,19 @@ const UpdateProfile = () => {
                                                 <FaCircle />   User Info
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Enter Name</label>
                                                 <input type="text" name="name" onChange={handleFdata} value={fdata?.name} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Enter Last Name</label>
                                                 <input type="text" name="last_name" onChange={handleFdata} value={fdata?.last_name} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Select Gender</label>
                                                 <div className="flex">
@@ -116,13 +116,13 @@ const UpdateProfile = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Enter Email</label>
                                                 <input type="text" name="email" onChange={handleFdata} value={fdata?.email} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Aadhar No</label>
 
@@ -143,7 +143,7 @@ const UpdateProfile = () => {
                                                 }
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Enter Date of Birth</label>
                                                 <input type="date" name="date_of_birth" onChange={handleFdata} value={fdata?.date_of_birth ? fdata?.date_of_birth.split('T')[0] : ""} id="" className="form-control" />
@@ -154,25 +154,25 @@ const UpdateProfile = () => {
                                                 <FaCircle />   Social Info
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Father Gautra</label>
                                                 <input type="text" name="fathergautra" onChange={handleFdata} value={fdata?.fathergautra} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Mother Gautra</label>
                                                 <input type="text" name="mothergautra" onChange={handleFdata} value={fdata?.mothergautra} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Excluded Gautras</label>
                                                 <input type="text" name="gautra_avoided" onChange={handleFdata} value={fdata?.gautra_avoided} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Marital Status</label>
                                                 <input type="text" name="marital_status" onChange={handleFdata} value={fdata?.marital_status} id="" className="form-control" />
@@ -191,19 +191,19 @@ const UpdateProfile = () => {
                                             <label htmlFor="">About Me</label>
                                             <textarea name="about_me" rows='5' onChange={handleFdata} value={fdata?.about_me} className="form-control"></textarea>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Height</label>
                                                 <input type="text" name="height" onChange={handleFdata} value={fdata?.height} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">eye color</label>
                                                 <input type="text" name="eye_color" onChange={handleFdata} value={fdata?.eye_color} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Occupation</label>
                                                 <select onChange={handleFdata} name='occupation' className="form-control" >
@@ -218,7 +218,7 @@ const UpdateProfile = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Diet</label>
                                                 <select onChange={handleFdata} name='diet' className="form-control" >
@@ -233,7 +233,7 @@ const UpdateProfile = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Annual Income</label>
                                                 <input type="text" onChange={handleFdata} name='annual_income' value={fdata?.annual_income} className="form-control" />
@@ -244,7 +244,7 @@ const UpdateProfile = () => {
                                                 <FaCircle />   Address Info
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Select State</label>
                                                 <select onChange={handleFdata} name='state' className="form-control" >
@@ -259,7 +259,7 @@ const UpdateProfile = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
 
                                                 <label htmlFor="">Select City</label>
@@ -276,13 +276,13 @@ const UpdateProfile = () => {
                                                 </select>
                                             </div>
                                         </div>
-                                        <div className="col-span-3">
+                                        <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Enter Pincode</label>
                                                 <input type="text" onChange={handleFdata} name="pincode" value={fdata?.pincode} id="" className="form-control" />
                                             </div>
                                         </div>
-                                        <div className="col-span-12">
+                                        <div className="col-span-12 pb-4">
                                             <button className='bg-primary text-white p-3 rounded' onClick={updateProfile}>
                                                 Submit
                                             </button>

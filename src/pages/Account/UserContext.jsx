@@ -12,13 +12,19 @@ export const UserProvider = ({ children }) => {
     const [policies, setPolicies] = useState([]);
     const [banners, setBanners] = useState([]);
     const [faqs, setFaqs] = useState([]);
+    const [testimonial, setTestimonial] = useState([]);
+
+    const gettestimonial = async () => {
+        const item = await axios.get(API_URL + "testimonial");
+        setTestimonial(item.data.data);
+    }
     const fetchfaqs = async () => {
-        try{
+        try {
             const items = await axios.get(API_URL + "faq");
             setFaqs(items.data.data);
-        }catch(err){
+        } catch (err) {
             console.log(err);
-        }finally{
+        } finally {
             setLoading(false);
         }
     }
@@ -46,9 +52,9 @@ export const UserProvider = ({ children }) => {
             setLoading(true);
             const response = await axios.get(API_URL + 'banner?type=home_web');
             setBanners(response.data.data);
-        }catch(err){
+        } catch (err) {
             console.log(err);
-        }finally{
+        } finally {
             setLoading(false);
         }
     }
@@ -68,13 +74,14 @@ export const UserProvider = ({ children }) => {
         // navigate('/');
     }
     useEffect(() => {
+        gettestimonial();
         fetchfaqs();
         fetchpolicies();
         fetchUser();
         fetchBanners();
     }, []);
     return (
-        <UserContext.Provider value={{ user, setUser, loading, error, fetchUser, userLogout, policies, banners, faqs }}>
+        <UserContext.Provider value={{ user, testimonial, setUser, loading, error, fetchUser, userLogout, policies, banners, faqs }}>
             {children}
         </UserContext.Provider>
     );

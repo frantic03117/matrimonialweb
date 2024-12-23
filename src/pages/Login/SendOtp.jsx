@@ -76,10 +76,10 @@ const SendOtp = () => {
 
                                 <label htmlFor="" className='mb-3 block font-light uppercase  tracking-widest text-primary'>Enter Mobile</label>
                                 <div className="w-full">
-                                    <div className="flex gap-2">
-                                        <span className="inline-flex items-center justify-center bg-white rounded-s size-10 min-h-12 w-16 border border-primary/30">+91</span>
-                                        <input type="text" readOnly={status == 1 ? true : false} value={mobile} onChange={(e) => setMobile(e.target.value)} className="w-full p-2 outline-none   rounded-e border border-primary/30" />
-                                        <button disabled={status == "1" || !mobile ? true : false} onClick={sendOtp} className='btn bg-primary disabled:bg-gray-700 text-white px-10 py-2 text-nowrap rounded-e-lg'>Send OTP</button>
+                                    <div className="flex lg:flex-nowrap flex-wrap  lg:gap-2 gap-1">
+                                        <span className="inline-flex items-center justify-center bg-white rounded-s size-10 min-h-12 lg:w-16 w-12 border border-primary/30">+91</span>
+                                        <input type="text" readOnly={status == 1 ? true : false} value={mobile} onChange={(e) => setMobile(e.target.value)} className=" w-[calc(100%-4rem)] p-2 outline-none   rounded-e border border-primary/30" />
+                                        <button disabled={status == "1" || !mobile ? true : false} onClick={sendOtp} className='btn bg-primary disabled:bg-gray-700 text-white lg:px-10 px-2 py-2 text-nowrap lg:rounded-e-lg rounded'>Send OTP</button>
                                     </div>
                                 </div>
                             </div>

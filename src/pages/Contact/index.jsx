@@ -10,7 +10,7 @@ const Contact = () => {
             <section className='relative contactPage bg-yellow-100/20 z-[1] py-20 '>
                 <div className="container relative z-20">
                     <div className="grid grid-cols-12 gap-6">
-                        <div className="col-span-6">
+                        <div className="lg:col-span-6 col-span-12">
                             <div className="w-full">
                                 <h2 className="section_title">Feel Free  <br></br> to Contact us</h2>
                             </div>
@@ -39,7 +39,7 @@ const Contact = () => {
                                 <div className='w-[calc(100%-6rem)] text-wrap block' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "email")?.description }} />
                             </div>
                         </div>
-                        <div className="col-span-6">
+                        <div className="lg:col-span-6 col-span-12">
                             <div className="w-full rounded-lg bg-white overflow-hidden shadow-sm shadow-primary">
                                 <ContactForm />
                             </div>
