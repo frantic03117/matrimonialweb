@@ -20,7 +20,7 @@ import { useUser } from '../Account/UserContext';
 import { BASE_URL } from '../../utils';
 import { Link } from "react-router-dom";
 const Home = () => {
-  const { banners } = useUser();
+  const { banners, policies } = useUser();
   const settings = {
     dots: true,
     infinite: true,
@@ -68,9 +68,9 @@ const Home = () => {
                     While perfection is an unattainable ideal, in this imagined partnership, we would complement each other in a beautifully imperfect harmony, bound by the threads of mutual respect, admiration, and love.
                   </p>
                   <div className="w-full flex  gap-4 mt-5">
-                    <button className=" w-40 border border-white btn rounded p-3 bg-white">
+                    <a target="_blank" href={policies.find(obj => obj.url == "play-store")?.description?.replace(/<\/?p>/g, "")} className=" w-40 border border-white btn rounded p-3 bg-white">
                       <img src={google} alt="" className="w-full" />
-                    </button>
+                    </a>
                     <Link to={'/login'} className="w-40 py-4 bg-primary text-center inline-block text-white rounded btn">
                       Get Started
                     </Link>
