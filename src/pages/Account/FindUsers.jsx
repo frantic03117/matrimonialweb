@@ -58,7 +58,13 @@ const FindUsers = () => {
             console.log("subs", subscription.data.data)
 
             if (subscription.data.data && subscription.data.data.length == 0) {
-
+                // const resp = await axios.get(API_URL + `user/all?page=${page}&state=${selectedState}&city=${selectedCity}`, {
+                //     headers: {
+                //         Authorization: "Bearer " + token
+                //     }
+                // });
+                // setUsers(resp.data.data);
+                // setPagination(resp.data.pagination)
                 setsuubscription(subscription.data.data)
                 setLoad(false);
 
@@ -216,7 +222,7 @@ const FindUsers = () => {
                                     {
                                         (usr.name && !usr.interest) && (
                                             <>
-                                                <div className="lg:col-span-10 col-span-12 mb-6">
+                                                <div className="lg:col-span-12 col-span-12 mb-6">
                                                     <UserBox handleWishlist={handleWishlist} sendInsterest={sendInsterest} userdata={usr} />
                                                 </div>
                                             </>

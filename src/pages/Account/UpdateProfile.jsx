@@ -11,6 +11,19 @@ const UpdateProfile = () => {
     const [fdata, setFdata] = React.useState({});
     const [mdata, setMdata] = React.useState([]);
     const token = localStorage.getItem(usertoken);
+    const [years, setYears] = React.useState([]);
+    const [msg, setMsg] = React.useState('');
+    const [status, setStatus] = React.useState(0);
+    const getyears = () => {
+        const yearsArray = [];
+
+        // Loop through the years from 1975 to the current year
+        for (let year = 1975; year <= new Date().getFullYear(); year++) {
+            yearsArray.push(year);
+        }
+        setYears(yearsArray);
+    }
+
     const [isload, setLoad] = React.useState(true);
     const getmdata = async () => {
         try {
@@ -31,10 +44,12 @@ const UpdateProfile = () => {
     React.useEffect(() => {
         getfields();
         getmdata();
+        getyears();
     }, []);
     React.useEffect(() => {
         if (allfields && user && !loading) {
             let arr = {}
+            // eslint-disable-next-line no-unused-vars
             Object.entries(allfields).map(([k, v]) => {
                 if (!['is_deleted', 'is_rejected'].includes(k)) {
                     if (!['city', 'diet', 'occupation', 'state', 'city', 'gautra_avoided'].includes(k)) {
@@ -46,6 +61,11 @@ const UpdateProfile = () => {
                     }
                 }
             });
+            user?.education && user?.education.map(edu => {
+                arr['completed_year'] = edu.completed_year;
+                arr['education'] = edu.education
+                return true;
+            })
             setFdata(arr);
         }
     }, [allfields, user, loading]);
@@ -61,13 +81,16 @@ const UpdateProfile = () => {
             const formd = new FormData();
             Object.entries(fdata).map(([k, v]) => {
                 formd.append(k, v);
-            })
+            });
+            
             const itm = await axios.put(API_URL + "user/update", formd, {
                 headers: {
                     Authorization: "Bearer " + token
                 }
             });
-            console.log(itm);
+            setStatus(itm.data.success);
+            setMsg(itm.data.message);
+            window.scrollTo(0,0);
         } catch (err) {
             console.log(err);
         } finally {
@@ -90,6 +113,17 @@ const UpdateProfile = () => {
                             <section>
                                 <div className="container themeform border border-primary/50 p-5 bg-yellow-200/10 backdrop-blur-sm rounded-lg">
                                     <div className="grid grid-cols-12 gap-5">
+                                        <div className="col-span-12">
+                                            {
+                                                msg && (
+                                                    <>
+                                                        <div className={`${status == "1" ? 'bg-green-500' : 'bg-red-500'} text-white p-4 text-xs`}>
+                                                            {msg}
+                                                        </div>
+                                                    </>
+                                                )
+                                            }
+                                        </div>
                                         <div className="col-span-12">
                                             <div className="p-2 flex gap-3 items-center text-sm  font-light text-primary bg-primary/20 rounded border-s  border-primary">
                                                 <FaCircle />   User Info
@@ -176,7 +210,7 @@ const UpdateProfile = () => {
                                             <div className="form-group">
                                                 <label htmlFor="">Marital Status</label>
                                                 {/* <input type="text" name="marital_status" onChange={handleFdata} value={fdata?.marital_status} id="" className="form-control" /> */}
-                                                
+
                                                 <select onChange={handleFdata} name='marital_status' className="form-control" >
                                                     <option value="">---Select---</option>
                                                     <option selected={"Single" == fdata?.marital_status} value={"Single"}>{"Single"}</option>
@@ -186,6 +220,7 @@ const UpdateProfile = () => {
 
                                             </div>
                                         </div>
+
                                         <div className="col-span-12">
                                             <div className="p-2 flex gap-3 items-center text-sm  font-light text-primary bg-primary/20 rounded border-s  border-primary">
                                                 <FaCircle />   Personal Info
@@ -247,6 +282,38 @@ const UpdateProfile = () => {
                                                 <input type="text" onChange={handleFdata} name='annual_income' value={fdata?.annual_income} className="form-control" />
                                             </div>
                                         </div>
+                                        <div className="col-span-12">
+                                            <div className="p-2 flex gap-3 items-center text-sm  font-light text-primary bg-primary/20 rounded border-s  border-primary">
+                                                <FaCircle />   Educational Info
+                                            </div>
+                                        </div>
+                                        <div className="lg:col-span-3 col-span-12">
+                                            <label htmlFor="">Education</label>
+                                            <select onChange={handleFdata} name='education' className="form-control" >
+                                                <option value="">---Select---</option>
+                                                {
+                                                        mdata.filter(obj => obj.column_type == "education").map(itm => (
+                                                            <>
+                                                                <option selected={itm._id == fdata.education} value={itm._id}>{itm.title}</option>
+                                                            </>
+                                                        ))
+                                                    }
+                                            </select>
+                                        </div>
+                                        <div className="lg:col-span-3 col-span-12">
+                                            <label htmlFor="">Completed Year</label>
+                                            <select name="education_year" onChange={handleFdata} id="" className="form-control">
+                                                <option value="">---Select---</option>
+                                                {
+                                                    years.map(itm => (
+                                                        <>
+                                                            <option selected={fdata?.completed_year} value={itm}>{itm}</option>
+                                                        </>
+                                                    ))
+                                                }
+                                            </select>
+                                        </div>
+
                                         <div className="col-span-12">
                                             <div className="p-2 flex gap-3 items-center text-sm  font-light text-primary bg-primary/20 rounded border-s  border-primary">
                                                 <FaCircle />   Native Address Info

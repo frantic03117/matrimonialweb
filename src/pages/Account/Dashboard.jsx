@@ -1,15 +1,15 @@
 // import React from 'react'
 import React from 'react';
-import profile1 from '../../assets/profile/men1.jpg';
+// import profile1 from '../../assets/profile/men1.jpg';
 import { API_URL, usertoken } from '../../utils';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import Loading from '../../components/Loading';
 import { useUser } from './UserContext';
 
 const Dashboard = () => {
     const { user, loading } = useUser();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const [connections, setConnections] = React.useState({});
     const utoken = localStorage.getItem(usertoken);
     const [isload, setLoading] = React.useState(true);
@@ -90,48 +90,7 @@ const Dashboard = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    {
-                                        connections.map(() => (
-                                            <>
-
-                                                <div className="col-span-12 my-2">
-                                                    <div className="w-full p-5 rounded-xl shadow-sm shadow-gray-600 bg-white">
-
-
-                                                        <div className="grid grid-cols-12 gap-4">
-                                                            <div className="col-span-2">
-                                                                <img src={profile1} alt="" className=" size-32 rounded-xl" />
-                                                            </div>
-
-                                                            <div className="col-span-10">
-                                                                <div className="w-full">
-                                                                    <h4 className='text-primary text-lg font-bold'>John Smith</h4>
-                                                                    <ul className='list-disc font-light flex gap-5 list-inside text-primary'>
-                                                                        <li>
-                                                                            <strong>City </strong> <span>Gurgaon</span>
-                                                                        </li>
-                                                                        <li>
-                                                                            <strong>Age </strong> <span>25 years</span>
-                                                                        </li>
-                                                                        <li>
-                                                                            <strong>Height </strong> <span>5.9</span>
-                                                                        </li>
-                                                                        <li>
-                                                                            <strong>Job </strong> <span>Govt. Job</span>
-                                                                        </li>
-                                                                    </ul>
-                                                                    <div className="w-full py-3 text-end">
-                                                                        <button className='text-green-500 border border-green-500 px-5 py-2 rounded text-xs'>Accept</button>
-                                                                        <button className='text-red-500 border ms-3 border-red-500 px-5 py-2 rounded text-xs'>Reject</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        ))
-                                    }
+                                   
                                 </div>
                             </div>
                         </section>
