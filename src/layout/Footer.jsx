@@ -84,7 +84,7 @@ const Footer = () => {
                                         <div className="footer-widget">
                                             <h4 className="widget-title cursive text-2xl  font-bold text-primary">Services</h4>
                                             <ul className="list-unstyled *:py-2">
-                                                <li><Link to="/plans">Pricing</Link></li>
+                                                {/* <li><Link to="/plans">Pricing</Link></li> */}
                                                 <li><Link to="/contact">Support</Link></li>
 
                                                 <li><Link to="/faqs">Faq’s</Link></li>
@@ -97,7 +97,7 @@ const Footer = () => {
                                             <ul className="list-unstyled *:py-2">
                                                 <li><Link to="/policy/privacy-policy">Privacy Policy</Link></li>
                                                 <li><Link to="/policy/terms-conditions">Terms &amp; Conditions</Link></li>
-                                                <li><Link to="/policy/refunds-cancellations"> Refunds &amp; Cancellations</Link></li>
+                                                <li><Link to="/policy/refunds-cancellations"> Cancellation of Profile</Link></li>
                                             </ul>
                                         </div>
                                     </div>

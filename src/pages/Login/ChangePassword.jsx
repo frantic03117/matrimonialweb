@@ -4,32 +4,45 @@ import axios from 'axios'
 import { API_URL, usertoken } from '../../utils'
 import { useNavigate } from 'react-router-dom'
 
-const LoginForm = () => {
+const ChangePassword = (props) => {
     const navigate = useNavigate();
     const [message, setMessage] = React.useState('');
-    const [fdata, setFdata] = React.useState({ email: "", password: "" });
+    const [fdata, setFdata] = React.useState({ newpassword: "", password: "" });
     const [loading, setLoading] = React.useState(false);
     const handleFdata = (e) => {
         setFdata({ ...fdata, [e.target.name]: e.target.value })
     }
     const handleLogin = async () => {
-        try {
-            setLoading(true);
-            const resp = await axios.post(API_URL + "user/login", fdata);
-            setLoading(false);
-            if (resp.data.success == "1") {
-                localStorage.setItem(usertoken, resp.data.token);
-                navigate('/user/dashboard')
-            }
-            if (resp.data.success) {
-                setMessage(resp.data.message);
-            }
-        } catch (err) {
-            setLoading(false);
-            setMessage(err.response.data.message);
 
-            console.log(err.response.data.message);
+        if (fdata.newpassword == fdata.password) {
+            try {
+                setLoading(true);
+                let json = {
+                    verification_id: props.verification_id,
+                    mobile: props.mobile,
+                    password: fdata.password
+                }
+                const resp = await axios.post(API_URL + "user/generate-new-passworwd", json);
+                setLoading(false);
+                if (resp.data.success == "1") {
+                    window.location.reload();
+                }
+                if (resp.data.success) {
+                    setMessage(resp.data.message);
+                }
+            } catch (err) {
+                setLoading(false);
+                setMessage(err.response.data.message);
+
+                console.log(err.response.data.message);
+            }
+
+        } else {
+            setMessage("Password mismatch");
+
         }
+
+
     }
     return (
         <>
@@ -54,16 +67,16 @@ const LoginForm = () => {
                                 )
                             }
                             <div className="form-group mb-5">
-                                <label htmlFor="">Enter Email</label>
-                                <input type="text" name="email" onChange={handleFdata} value={fdata.email} className="form-control" />
+                                <label htmlFor="">Enter New Password </label>
+                                <input type="password" name="newpassword" onChange={handleFdata} value={fdata.newpassword} className="form-control" />
                             </div>
                             <div className="form-group mb-5">
-                                <label htmlFor="">Enter Password</label>
-                                <input type="password" name='password' onChange={handleFdata} value={fdata.password} className="form-control" />
+                                <label htmlFor="">Confirm Password</label>
+                                <input type="password" name='password' onChange={handleFdata} value={fdata.confirmpassword} className="form-control" />
                             </div>
                             <div className="form-group mb-5">
                                 <label htmlFor="">&nbsp;</label>
-                                <button onClick={handleLogin} className="px-10 py-2 bg-primary text-white rounded">Login</button>
+                                <button onClick={handleLogin} className="px-10 py-2 bg-primary text-white rounded">Update Password</button>
                             </div>
                         </div>
                     </div>
@@ -73,4 +86,4 @@ const LoginForm = () => {
     )
 }
 
-export default LoginForm
+export default ChangePassword

@@ -175,7 +175,15 @@ const UpdateProfile = () => {
                                         <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
                                                 <label htmlFor="">Marital Status</label>
-                                                <input type="text" name="marital_status" onChange={handleFdata} value={fdata?.marital_status} id="" className="form-control" />
+                                                {/* <input type="text" name="marital_status" onChange={handleFdata} value={fdata?.marital_status} id="" className="form-control" /> */}
+                                                
+                                                <select onChange={handleFdata} name='marital_status' className="form-control" >
+                                                    <option value="">---Select---</option>
+                                                    <option selected={"Single" == fdata?.marital_status} value={"Single"}>{"Single"}</option>
+                                                    <option selected={"Widow" == fdata?.marital_status} value={"Widow"}>{"Widow"}</option>
+                                                    <option selected={"Divorced" == fdata?.marital_status} value={"Divorced"}>{"Divorced"}</option>
+                                                </select>
+
                                             </div>
                                         </div>
                                         <div className="col-span-12">

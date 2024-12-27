@@ -4,6 +4,7 @@ import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 const UserBox = ({ userdata, sendInsterest, handleWishlist, handleConnection = () => { }, viewType = "all" }) => {
+    console.log("userdata",userdata)
     const [profileimage, setProfileImage] = React.useState('');
     const navigate = useNavigate();
     React.useEffect(() => {
@@ -30,6 +31,17 @@ const UserBox = ({ userdata, sendInsterest, handleWishlist, handleConnection = (
         let age = today.getFullYear() - dobDate.getFullYear(); // Calculate the year difference
         return age;
     }
+
+    const convertHeight = (decimalHeight) => {
+        // return decimalHeight
+        if(decimalHeight){
+            const [feet, inches] = decimalHeight?.split(".").map(Number);
+            const totalInches = Math.round((inches / 10) * 12); // Convert decimal part to inches
+            return `${feet}'${totalInches}"`;
+        }else{
+            return null;
+        }
+      };
 
     return (
         <>
@@ -69,11 +81,12 @@ const UserBox = ({ userdata, sendInsterest, handleWishlist, handleConnection = (
                                             <strong>Age </strong> <span>{calculateAge(userdata?.date_of_birth ?? "1990-01-01")}</span>
                                         </li>
                                         <li>
-                                            <strong>Height </strong> <span>{userdata?.height}</span>
+                                            <strong>Height </strong> <span>{convertHeight(userdata?.height)}</span>
                                         </li>
                                         <li>
                                             <strong>Job </strong> <span>{userdata?.occupation?.title}</span>
                                         </li>
+                                        
                                     </ul>
                                     <div className="w-full py-3 text-end">
 

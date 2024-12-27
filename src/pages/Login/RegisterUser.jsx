@@ -97,6 +97,11 @@ const RegisterUser = ({ mobile }) => {
                                 </>
                             )
                         }
+                        <div className="col-span-12">
+                            <div className={`w-full p-3 text-white bg-red-500`}>
+                                {"Profile should have data of prospective groom/bride"}
+                            </div>
+                        </div>
 
                         <div className="col-span-6">
                             <div className="form-group">
@@ -135,7 +140,7 @@ const RegisterUser = ({ mobile }) => {
                         <div className="col-span-6">
                             <div className="form-group">
                                 <label htmlFor="">Enter Password</label>
-                                <input type="text" value={conf_password} onChange={(e) => setConfPassword(e.target.value)} className="form-control" />
+                                <input type="password" value={conf_password} onChange={(e) => setConfPassword(e.target.value)} className="form-control" />
                                 <span className='block text-red-500 text-xs'>
                                     {errors.find(obj => obj.path == "password")?.msg}
                                 </span>

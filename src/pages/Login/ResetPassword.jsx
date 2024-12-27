@@ -4,19 +4,21 @@ import OtpInput from 'react-otp-input';
 import { API_URL } from '../../utils';
 import Loading from '../../components/Loading';
 import RegisterUser from './RegisterUser';
+import ChangePassword from './ChangePassword';
 
-const SendOtp = () => {
+const ResetPassword = () => {
     const [mobile, setMobile] = React.useState('');
     const [otp, setOtp] = React.useState('');
     const [status, setStatus] = React.useState('');
     const [msg, setMsg] = React.useState('');
     const [loading, setLoading] = React.useState(false);
     const [step, setStep] = React.useState(0);
+    const [verification_id, setverification_id] = React.useState("")
     const sendOtp = async (e) => {
         try {
             e.preventDefault();
             setLoading(true);
-            const resp = await axios.post(API_URL + "user/send-otp", { mobile });
+            const resp = await axios.post(API_URL + "user/send-reset-otp", { mobile });
             setStatus(resp.data.success);
             setMsg(resp.data.message);
             if (resp.data.success == "1") {
@@ -31,9 +33,10 @@ const SendOtp = () => {
         try {
             e.preventDefault();
             setLoading(true);
-            const resp = await axios.post(API_URL + "user/verify-otp", { mobile, otp });
+            const resp = await axios.post(API_URL + "user/forget-verify-otp", { mobile, otp });
             setLoading(false);
             if (resp.data.success == "1") {
+                setverification_id(resp.data?.verification_id)
                 setStep(2)
             }
             if (resp.data.success == "0") {
@@ -49,7 +52,7 @@ const SendOtp = () => {
             {
                 step == 2 ? (
                     <>
-                        <RegisterUser mobile={mobile} />
+                        <ChangePassword mobile={mobile} verification_id={verification_id}/>
                     </>
                 ) : (
                     <>
@@ -71,11 +74,10 @@ const SendOtp = () => {
                                     </>
                                 )
                             }
-                            
                             <div className="form-group mb-8">
 
 
-                                <label htmlFor="" className='mb-3 block font-light uppercase  tracking-widest text-primary'>Enter Mobile</label>
+                                <label htmlFor="" className='mb-3 block font-light uppercase  tracking-widest text-primary'>Enter Registered Mobile No</label>
                                 <div className="w-full">
                                     <div className="flex lg:flex-nowrap flex-wrap  lg:gap-2 gap-1">
                                         <span className="inline-flex items-center justify-center bg-white rounded-s size-10 min-h-12 lg:w-16 w-12 border border-primary/30">+91</span>
@@ -116,4 +118,4 @@ const SendOtp = () => {
     )
 }
 
-export default SendOtp
+export default ResetPassword

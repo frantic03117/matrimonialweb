@@ -17,6 +17,7 @@ import UserChat from "./pages/Account/UserChat";
 import AppPolicy from "./pages/Policy";
 import Faqs from "./pages/Faq";
 import PaymentResponse from "./pages/Payment/PaymentResponse";
+import ResetPassword from "./pages/Login/ResetPassword";
 
 function App() {
   const ThemeRoutes = createBrowserRouter(
@@ -25,6 +26,7 @@ function App() {
         <Route path='/' element={<Layout />} >
           <Route index element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/about" element={<About />} />
           <Route path="/policy/:url" element={<AppPolicy />} />

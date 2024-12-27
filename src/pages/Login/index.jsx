@@ -6,6 +6,7 @@ import LoginForm from './LoginForm'
 import SendOtp from './SendOtp'
 import { useUser } from '../Account/UserContext'
 import { useNavigate } from 'react-router-dom'
+import ResetPassword from './ResetPassword'
 // import Loading from '../../components/Loading';
 
 
@@ -16,6 +17,7 @@ const Login = () => {
     //     navigate('/user/dashboard')
     // }
     const [isSignup, setSignup] = React.useState(false);
+    const [isResetPwd, setIsResetPwd] = React.useState(false);
 
 
     return (
@@ -50,21 +52,28 @@ const Login = () => {
                                         <div className="w-full h-full themeform rounded-e-3xl bg-yellow-100/90 lg:p-10 p-4">
                                             <h2 className='section_title mb-4'>Sign in to Matrimony</h2>
                                             {
-                                                isSignup ? (
-                                                    <>
-                                                        <SendOtp />
-                                                        <p>
-                                                            Already have an account? <button className=' underline text-primary' onClick={() => setSignup(false)}>Login </button>
-                                                        </p>
-                                                    </>
-                                                ) : (
-                                                    <>
-                                                        <LoginForm />
-                                                        <p>
-                                                            Dont have an account? <button className=' underline text-primary' onClick={() => setSignup(true)}>Sign up </button>
-                                                        </p>
-                                                    </>
-                                                )
+                                                isResetPwd ?
+                                                    <ResetPassword/>
+                                                    :
+                                                    isSignup ? (
+                                                        <>
+                                                            <SendOtp />
+                                                            <p>
+                                                                Already have an account? <button className=' underline text-primary' onClick={() => setSignup(false)}>Login </button>
+                                                            </p>
+                                                            
+                                                        </>
+                                                    ) : (
+                                                        <>
+                                                            <LoginForm />
+                                                            <p>
+                                                                Dont have an account? <button className=' underline text-primary' onClick={() => setSignup(true)}>Sign up </button>
+                                                            </p>
+                                                            <p>
+                                                                Forgot password? <button className=' underline text-primary' onClick={() => setIsResetPwd(true)}>Reset Password </button>
+                                                            </p>
+                                                        </>
+                                                    )
                                             }
 
 

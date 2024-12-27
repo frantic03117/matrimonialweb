@@ -24,6 +24,7 @@ const FindUsers = () => {
         "perPage": 10,
         "page": "1"
     });
+    const [suubscription, setsuubscription] = React.useState([])
     const [page, setPage] = React.useState(1);
     const getstates = async () => {
         const items = await axios.get(API_URL + "surajmal/core-values?key=state");
@@ -42,19 +43,41 @@ const FindUsers = () => {
     }, [selectedState])
 
     const getusers = async () => {
+
+
         try {
             setLoad(true);
-            const resp = await axios.get(API_URL + `user/all?page=${page}&state=${selectedState}&city=${selectedCity}`, {
+
+            const subscription = await axios.get(API_URL + `cart/user`, {
                 headers: {
                     Authorization: "Bearer " + token
                 }
             });
-            setUsers(resp.data.data);
+
+            console.log("subs", subscription.data.data)
+
+            if (subscription.data.data && subscription.data.data.length == 0) {
+                
+                setsuubscription(subscription.data.data)
+                setLoad(false);
+                
+            } else {
+
+                const resp = await axios.get(API_URL + `user/all?page=${page}&state=${selectedState}&city=${selectedCity}`, {
+                    headers: {
+                        Authorization: "Bearer " + token
+                    }
+                });
+                setUsers(resp.data.data);
+            }
+
         } catch (err) {
             console.log(err);
         } finally {
             setLoad(false);
         }
+
+
     }
     const filterdata = () => {
         getusers();
@@ -180,10 +203,24 @@ const FindUsers = () => {
                         }
                         <div className="col-span-12">
                             {
+                                suubscription.length == 0 
+                                ?
+                                <>
+                                        <div className="p-4 bg-primary/20 text-primary">
+
+
+                                            Please Subscribe First
+                                        
+                                        </div>
+                                    </>
+                                : 
                                 users.length == 0 && (
                                     <>
                                         <div className="p-4 bg-primary/20 text-primary">
+
+
                                             No user found
+                                        
                                         </div>
                                     </>
                                 )
