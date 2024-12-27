@@ -201,7 +201,7 @@ const UpdateProfile = () => {
                                         </div>
                                         <div className="lg:col-span-3 col-span-12">
                                             <div className="form-group">
-                                                <label htmlFor="">Height</label>
+                                                <label htmlFor="">Height <small className='text-red-500'>height in(x.y) feet</small> </label>
                                                 <input type="text" name="height" onChange={handleFdata} value={fdata?.height} id="" className="form-control" />
                                             </div>
                                         </div>
@@ -249,7 +249,7 @@ const UpdateProfile = () => {
                                         </div>
                                         <div className="col-span-12">
                                             <div className="p-2 flex gap-3 items-center text-sm  font-light text-primary bg-primary/20 rounded border-s  border-primary">
-                                                <FaCircle />   Address Info
+                                                <FaCircle />   Native Address Info
                                             </div>
                                         </div>
                                         <div className="lg:col-span-3 col-span-12">

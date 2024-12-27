@@ -19,6 +19,7 @@ import ContactForm from './ContactForm';
 import { useUser } from '../Account/UserContext';
 import { BASE_URL } from '../../utils';
 import { Link } from "react-router-dom";
+import Disclaimer from "./Disclaimer";
 const Home = () => {
   const { banners, policies } = useUser();
   const settings = {
@@ -34,6 +35,7 @@ const Home = () => {
   };
   return (
     <>
+    <Disclaimer/>
       <section className="overflow-hidden relative">
         <div className="w-full overflow-hidden" id="hero_banner" >
           <Slider {...settings}>

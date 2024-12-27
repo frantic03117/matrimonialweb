@@ -28,8 +28,8 @@ const AppPolicy = () => {
                             <div className="container mx-auto">
                                 <div className="grid grid-cols-12">
                                     <div className="col-span-1"></div>
-                                    <div className="col-span-10">
-                                        <div className="w-full p-5 bg-blue-gray-100/50 rounded shadow shadow-black">
+                                    <div className="lg:col-span-10 col-span-12">
+                                        <div className="w-full p-5 bg-primary/20 rounded shadow shadow-black">
                                             <div dangerouslySetInnerHTML={{ __html: policies?.description }} />
                                         </div>
                                     </div>

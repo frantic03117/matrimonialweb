@@ -98,8 +98,19 @@ const RegisterUser = ({ mobile }) => {
                             )
                         }
                         <div className="col-span-12">
-                            <div className={`w-full p-3 text-white bg-red-500`}>
-                                {"Profile should have data of prospective groom/bride"}
+                            <div className={`w-full`}>
+                                <ul className='text-black list-disc text-sm'>
+                                    <li>
+                                        Profile should have data of prospective groom/bride
+                                    </li>
+                                    <li>
+                                        Password must be at least 6 characters long and contain at least one special character.
+                                    </li>
+                                    <li>
+                                        Adhar must be at a valid 12 digit number.
+                                    </li>
+                                </ul>
+
                             </div>
                         </div>
 

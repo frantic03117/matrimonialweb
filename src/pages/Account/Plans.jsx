@@ -46,8 +46,8 @@ const Plans = () => {
                                 <>
 
 
-                                    <div className="lg:col-span-4 col-span-12" >
-                                        <div className="w-full px-5  ">
+                                    <div className="lg:col-span-6 col-span-12" >
+                                        <div className="w-full px-5   ">
                                             <div className="w-full">
 
 
@@ -56,7 +56,7 @@ const Plans = () => {
                                                         <span>{itm.title}</span>
                                                     </div>
                                                 </div>
-                                                <div className="subscription_body p-8">
+                                                <div className="subscription_body bg-white p-8">
                                                     <div dangerouslySetInnerHTML={{ __html: itm.description }} />
                                                     <div className="w-full mt-5 pb-4 text-center">
                                                         <h2 className="text-3xl pricesubscription font-bold text-primary">

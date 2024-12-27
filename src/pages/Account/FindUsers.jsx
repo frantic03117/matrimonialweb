@@ -5,9 +5,9 @@ import { API_URL, usertoken } from '../../utils';
 import Loading from '../../components/Loading';
 // import { useUser } from './UserContext';
 import { toast } from 'react-toastify';
-import { FilterFilled } from '@ant-design/icons';
-import { IoRefresh, IoRefreshCircleOutline } from 'react-icons/io5';
-import { Link } from 'react-router-dom';
+import { FilterFilled, LeftOutlined, RightOutlined } from '@ant-design/icons';
+// import { IoRefresh, IoRefreshCircleOutline } from 'react-icons/io5';
+// import { Link } from 'react-router-dom';
 
 const FindUsers = () => {
     // const { user } = useUser();
@@ -19,9 +19,9 @@ const FindUsers = () => {
     const [selectedState, setSelectedState] = React.useState('');
     const [selectedCity, setSelectedCity] = React.useState('');
     const [pagination, setPagination] = React.useState({
-        "totalDocs": 6,
+        "totalDocs": 1,
         "totalPage": 1,
-        "perPage": 10,
+        "perPage": 1,
         "page": "1"
     });
     const [suubscription, setsuubscription] = React.useState([])
@@ -29,6 +29,7 @@ const FindUsers = () => {
     const getstates = async () => {
         const items = await axios.get(API_URL + "surajmal/core-values?key=state");
         setStates(items.data.data);
+
     }
 
     const getcities = async () => {
@@ -57,10 +58,10 @@ const FindUsers = () => {
             console.log("subs", subscription.data.data)
 
             if (subscription.data.data && subscription.data.data.length == 0) {
-                
+
                 setsuubscription(subscription.data.data)
                 setLoad(false);
-                
+
             } else {
 
                 const resp = await axios.get(API_URL + `user/all?page=${page}&state=${selectedState}&city=${selectedCity}`, {
@@ -69,6 +70,7 @@ const FindUsers = () => {
                     }
                 });
                 setUsers(resp.data.data);
+                setPagination(resp.data.pagination)
             }
 
         } catch (err) {
@@ -134,6 +136,30 @@ const FindUsers = () => {
                     )
                 }
                 <div className="container !p-0">
+                    <div className="w-full mb-5">
+                        <div className="grid grid-cols-12">
+                            <div className="col-span-6"></div>
+                            <div className="col-span-6 flex justify-end">
+                                <div className="inline-flex rounded-md overflow-hidden border-s border-t border-b border-primary *:p-1 *:text-xs *:w-10 *:min-h-6 *:leading-6 *:text-center *:border-e *:border-primary">
+                                    <button disabled={page == 1 ? true : false} onClick={() => setPage(1)}>
+                                        First
+                                    </button>
+                                    <button disabled={page == 1 ? true : false} onClick={() => setPage(prev => prev - 1)}>
+                                        <LeftOutlined />
+                                    </button>
+                                    <div className='min-w-10'>
+                                        {pagination?.page}/{pagination?.totalPage}
+                                    </div>
+                                    <button disabled={page == pagination?.totalPage ? true : false} onClick={() => setPage(prev => prev + 1)}>
+                                        <RightOutlined />
+                                    </button>
+                                    <button disabled={page == pagination?.totalPage ? true : false} onClick={() => setPage(pagination.totalPage)}>
+                                        Last
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div className="w-full mb-5">
                         <div className="grid grid-cols-12 gap-4">
 
@@ -203,27 +229,27 @@ const FindUsers = () => {
                         }
                         <div className="col-span-12">
                             {
-                                suubscription.length == 0 
-                                ?
-                                <>
-                                        <div className="p-4 bg-primary/20 text-primary">
-
-
-                                            Please Subscribe First
-                                        
-                                        </div>
-                                    </>
-                                : 
-                                users.length == 0 && (
+                                suubscription.length == 0
+                                    ?
                                     <>
                                         <div className="p-4 bg-primary/20 text-primary">
 
 
-                                            No user found
-                                        
+                                            Please Subscribe First
+
                                         </div>
                                     </>
-                                )
+                                    :
+                                    users.length == 0 && (
+                                        <>
+                                            <div className="p-4 bg-primary/20 text-primary">
+
+
+                                                No user found
+
+                                            </div>
+                                        </>
+                                    )
                             }
                         </div>
                     </div>
