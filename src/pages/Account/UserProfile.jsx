@@ -133,7 +133,7 @@ const UserProfile = ({ userdata }) => {
             <div className="col-span-1">
               <div className="w-full">
                 <h3 className='text-white bg-primary p-1 text-sm  inline-block  md:w-[45%] w-[100%] ' style={{ clipPath: 'polygon(0% 0%, 25% 0%, 77% 0%, -3% 662%)' }}>
-                  ADDRESS
+                 NATIVE ADDRESS
                 </h3>
 
               </div>

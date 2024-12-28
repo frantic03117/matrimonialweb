@@ -243,7 +243,7 @@ const FindUsers = () => {
                                         <div className="p-4 bg-primary/20 text-primary" onClick={()=> navigate('/subscriptions')}>
 
 
-                                            Please Subscribe First
+                                            Please Donate to the Society
 
                                         </div>
                                     </>
