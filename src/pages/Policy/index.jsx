@@ -29,7 +29,7 @@ const AppPolicy = () => {
                                 <div className="grid grid-cols-12">
                                     <div className="col-span-1"></div>
                                     <div className="lg:col-span-10 col-span-12">
-                                        <div className="w-full p-5 bg-primary/20 rounded shadow shadow-black">
+                                        <div className="w-full p-5 bg-primary/20 rounded shadow shadow-black contentData">
                                             <div dangerouslySetInnerHTML={{ __html: policies?.description }} />
                                         </div>
                                     </div>

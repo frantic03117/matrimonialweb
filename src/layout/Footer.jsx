@@ -98,7 +98,7 @@ const Footer = () => {
                                                 <li><Link to="/policy/diclaimer">Disclaimer</Link></li>
                                                 <li><Link to="/policy/privacy-policy">Privacy Policy</Link></li>
                                                 <li><Link to="/policy/terms-conditions">Terms &amp; Conditions</Link></li>
-                                                <li><Link to="/policy/refunds-cancellations"> Cancellation of Profile</Link></li>
+                                                <li><Link to="/policy/cancellation-of-profile"> Cancellation of Profile</Link></li>
                                                 <li><Link to="/policy/delete-policy">Delete Policy</Link></li>
                                             </ul>
                                         </div>
