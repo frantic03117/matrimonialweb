@@ -4,21 +4,22 @@ import React from 'react'
 import LoginForm from './LoginForm'
 // import RegisterUser from './RegisterUser'
 import SendOtp from './SendOtp'
-import { useUser } from '../Account/UserContext'
-import { useNavigate } from 'react-router-dom'
+// import { useUser } from '../Account/UserContext'
+
 import ResetPassword from './ResetPassword'
 // import Loading from '../../components/Loading';
 
 
 const Login = () => {
-    const { user, loading } = useUser();
-    const navigate = useNavigate();
+    // const { user, loading } = useUser();
+   
     // if (user) {
     //     navigate('/user/dashboard')
     // }
-    const [isSignup, setSignup] = React.useState(false);
-    const [isResetPwd, setIsResetPwd] = React.useState(false);
-
+    const [view, setView] = React.useState('login');
+    const handleView = (action) => {
+        setView(action);
+    }
 
     return (
         <>
@@ -52,32 +53,42 @@ const Login = () => {
                                         <div className="w-full h-full themeform rounded-e-3xl bg-yellow-100/90 lg:p-10 p-4">
                                             <h2 className='section_title mb-4'>Sign in to Matrimony</h2>
                                             {
-                                                isResetPwd ?
-                                                    <ResetPassword/>
-                                                    :
-                                                    isSignup ? (
-                                                        <>
-                                                            <SendOtp />
+                                                view == "login" && (
+                                                    <>
+                                                    <LoginForm />
                                                             <p>
-                                                                Already have an account? <button className=' underline text-primary' onClick={() => setSignup(false)}>Login </button>
-                                                            </p>
-                                                            
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <LoginForm />
-                                                            <p>
-                                                                Dont have an account? <button className=' underline text-primary' onClick={() => setSignup(true)}>Sign up </button>
+                                                                Dont have an account? <button className=' underline text-primary' onClick={() => handleView('singup')}>Sign up </button>
                                                             </p>
                                                             <p>
-                                                                Forgot password? <button className=' underline text-primary' onClick={() => setIsResetPwd(true)}>Reset Password </button>
+                                                                Forgot password? <button className=' underline text-primary' onClick={() => handleView('forget')}>Reset Password </button>
                                                             </p>
-                                                        </>
-                                                    )
+                                                    </>
+                                                )
                                             }
+                                            {
+                                                view == "forget" && (
+                                                    <>
+                                                     <ResetPassword />
+                                                        <p>
+                                                            Already have an account? <button className=' underline text-primary' onClick={() => handleView('login')}>Login </button>
+                                                        </p>
+                                                    </>
+                                                )
+                                            }
+                                             {
+                                                view == "singup" &&  (
+                                                    <>
+                                                     <SendOtp />
+                                                            <p>
+                                                                Already have an account? <button className=' underline text-primary' onClick={() => handleView('login')}>Login </button>
+                                                            </p>
+                                                    </>
+                                                )
+                                             }
+                                         
 
 
-                                            {/* <RegisterUser/> */}
+                                         
                                         </div>
                                     </div>
                                 </div>

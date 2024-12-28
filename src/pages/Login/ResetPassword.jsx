@@ -3,10 +3,12 @@ import React from 'react'
 import OtpInput from 'react-otp-input';
 import { API_URL } from '../../utils';
 import Loading from '../../components/Loading';
-import RegisterUser from './RegisterUser';
+// import RegisterUser from './RegisterUser';
 import ChangePassword from './ChangePassword';
 
+
 const ResetPassword = () => {
+     
     const [mobile, setMobile] = React.useState('');
     const [otp, setOtp] = React.useState('');
     const [status, setStatus] = React.useState('');
@@ -52,7 +54,7 @@ const ResetPassword = () => {
             {
                 step == 2 ? (
                     <>
-                        <ChangePassword mobile={mobile} verification_id={verification_id}/>
+                        <ChangePassword mobile={mobile} verification_id={verification_id} />
                     </>
                 ) : (
                     <>
@@ -85,6 +87,7 @@ const ResetPassword = () => {
                                         <button disabled={status == "1" || !mobile ? true : false} onClick={sendOtp} className='btn bg-primary disabled:bg-gray-700 text-white lg:px-10 px-2 py-2 text-nowrap lg:rounded-e-lg rounded'>Send OTP</button>
                                     </div>
                                 </div>
+                               
                             </div>
                             {
                                 step == 1 && (

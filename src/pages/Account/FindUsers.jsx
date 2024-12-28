@@ -6,11 +6,13 @@ import Loading from '../../components/Loading';
 // import { useUser } from './UserContext';
 import { toast } from 'react-toastify';
 import { FilterFilled, LeftOutlined, RightOutlined } from '@ant-design/icons';
+import { useNavigate } from 'react-router-dom';
 // import { IoRefresh, IoRefreshCircleOutline } from 'react-icons/io5';
 // import { Link } from 'react-router-dom';
 
 const FindUsers = () => {
     // const { user } = useUser();
+    const navigate = useNavigate();
     const [users, setUsers] = React.useState([]);
     const [load, setLoad] = React.useState(true);
     const token = localStorage.getItem(usertoken);
@@ -238,7 +240,7 @@ const FindUsers = () => {
                                 suubscription.length == 0
                                     ?
                                     <>
-                                        <div className="p-4 bg-primary/20 text-primary">
+                                        <div className="p-4 bg-primary/20 text-primary" onClick={()=> navigate('/subscriptions')}>
 
 
                                             Please Subscribe First

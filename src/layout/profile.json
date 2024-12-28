@@ -31,6 +31,7 @@
     "diet": {
         "_id": "675c2411ee2ff2fffc7a8426",
         "parent_id": null,
+        
         "column_type": "diet",
         "title": "Vegan",
         "createdAt": "2024-12-13T12:09:53.237Z",

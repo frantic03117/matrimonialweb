@@ -3,7 +3,7 @@ import logo from '../assets/logo.png'
 import { useUser } from '../pages/Account/UserContext'
 import { UserOutlined } from '@ant-design/icons';
 import { CgMenuRight } from 'react-icons/cg';
-import { MobileView, isMobile } from 'react-device-detect';
+import {  isMobile } from 'react-device-detect';
 import React from 'react';
 const Header = () => {
     const { user } = useUser();
@@ -60,7 +60,7 @@ const Header = () => {
                                         {
                                             (user?.name) ? (<>
                                                 <Link to={'/user/dashboard'} className="lg:bg-primary lg:text-white px-3 py-2 rounded  text-sm  font-light uppercase btn overflow-hidden relative block">
-                                                    <span className="inline-block lg:bg-white text-primary leading-8 text-center rounded-full size-8">
+                                                    <span className="inline-block lg:bg-white text-primary leading-8 text-center rounded-full size-8 mr-2">
                                                         <UserOutlined />
                                                     </span>
                                                     <span className=''>
