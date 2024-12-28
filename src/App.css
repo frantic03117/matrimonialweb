@@ -466,3 +466,23 @@ img {
   }
 }
 
+.contentData li{
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 5px 0;
+ 
+}
+.contentData  h3,
+h4{
+  font-weight: 400;
+  color: #66451c !important;
+  font-size: 17px;
+  padding: 5px 0;
+}
+.contentData p{
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 28px;
+}
