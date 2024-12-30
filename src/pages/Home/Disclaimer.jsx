@@ -14,7 +14,7 @@ const Disclaimer = () => {
                 <DialogBody className='border-none outline-none '>
                     <div className="w-full">
                         <div className="w-full">
-                            <p className='text-sm pb-5 font-light tracking-widest leading-6'><span className="font-bold text-dark">Disclaimer</span> :
+                            <p className='lg:text-sm text-xs lg:pb-5 pb-2 font-light tracking-widest leading-6'><span className="font-bold text-dark">Disclaimer</span> :
                                 <div className='inline-block *:pb-5  font-light' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "diclaimer")?.description }} />
                             </p>
                             <div className="w-full text-center">

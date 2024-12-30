@@ -10,7 +10,7 @@ import icon6 from '../../assets/wedding-couple.png'
 const HowItWorks = () => {
     return (
         <>
-            <section className='py-20 relative'>
+            <section className='py-[3rem]  relative'>
                 <div className="container">
                     <div className="w-full text-center">
                         <h2 className='section_title'>

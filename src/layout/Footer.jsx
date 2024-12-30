@@ -27,7 +27,7 @@ const Footer = () => {
                         </div>
                     </div>
                 </section>
-                <footer className="bg-primary/20 py-20">
+                <footer className="bg-primary/20 lg:py-20 py-5">
                     <div className="container">
                         <div className="grid grid-cols-12 gap-4">
                             <div className="lg:col-span-3 col-span-12">
@@ -71,8 +71,8 @@ const Footer = () => {
                                 <div className="grid grid-cols-12 gap-4">
                                     <div className="lg:col-span-3 col-span-12">
                                         <div className="footer-widget">
-                                            <h4 className="widget-title cursive text-2xl  font-bold text-primary">Support</h4>
-                                            <ul className="list-unstyled *:py-2">
+                                            <h4 className="widget-title cursive lg:text-2xl text-lg  font-bold text-primary">Support</h4>
+                                            <ul className="list-unstyled lg:*:py-2 py-1">
                                                 <li><Link to="/login">Getting started</Link></li>
 
                                                 <li><Link to="/contact">Help center</Link></li>
@@ -82,8 +82,8 @@ const Footer = () => {
                                     </div>
                                     <div className="lg:col-span-3 col-span-12">
                                         <div className="footer-widget">
-                                            <h4 className="widget-title cursive text-2xl  font-bold text-primary">Services</h4>
-                                            <ul className="list-unstyled *:py-2">
+                                            <h4 className="widget-title cursive lg:text-2xl text-lg  font-bold text-primary">Services</h4>
+                                            <ul className="list-unstyled lg:*:py-2 py-1">
                                                 {/* <li><Link to="/plans">Pricing</Link></li> */}
                                                 <li><Link to="/contact">Support</Link></li>
 
@@ -93,8 +93,8 @@ const Footer = () => {
                                     </div>
                                     <div className="lg:col-span-3 col-span-12">
                                         <div className="footer-widget">
-                                            <h4 className="widget-title cursive text-2xl  font-bold text-primary">Policy</h4>
-                                            <ul className="list-unstyled *:py-2">
+                                            <h4 className="widget-title cursive lg:text-2xl text-lg  font-bold text-primary">Policy</h4>
+                                            <ul className="list-unstyled lg:*:py-2 py-1">
                                                 <li><Link to="/policy/diclaimer">Disclaimer</Link></li>
                                                 <li><Link to="/policy/privacy-policy">Privacy Policy</Link></li>
                                                 <li><Link to="/policy/terms-conditions">Terms &amp; Conditions</Link></li>
@@ -105,9 +105,9 @@ const Footer = () => {
                                     </div>
                                     <div className="lg:col-span-3 col-span-12">
                                         <div className="footer-widget">
-                                            <h4 className="widget-title cursive text-2xl  font-bold text-primary">Contact Us</h4>
+                                            <h4 className="widget-title cursive lg:text-2xl text-lg  font-bold text-primary">Contact Us</h4>
                                             <div className="footer-widget-contact">
-                                                <ul className="list-unstyled *:py-2">
+                                                <ul className="list-unstyled lg:*:py-2 py-1">
                                                     <li>
                                                         <div className='inline-block font-light text-sm' dangerouslySetInnerHTML={{ __html: policies.find(itm => itm.url == "address")?.description }} />
                                                     </li>

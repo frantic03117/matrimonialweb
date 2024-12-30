@@ -392,6 +392,29 @@ img {
   line-height: 25px;
 }
 
+.contentData li {
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 1px;
+  padding: 5px 0;
+
+}
+
+.contentData h3,
+h4 {
+  font-weight: 400;
+  color: #66451c !important;
+  font-size: 17px;
+  padding: 5px 0;
+}
+
+.contentData p {
+  font-weight: 300;
+  font-size: 14px;
+  letter-spacing: 1px;
+  line-height: 28px;
+}
+
 @media (max-width: 998px) {
   .section_title {
     font-size: 1.3rem;
@@ -464,25 +487,14 @@ img {
     font-weight: 300;
     line-height: 20px;
   }
+  #hero_banner img {
+    height: 450px;
+    transition: all 3s;
+    object-fit: cover;
+    scale: 1.2;
+  }
+  .hero_p {
+    font-size: 16px;
+    
 }
-
-.contentData li{
-  font-weight: 300;
-  font-size: 14px;
-  letter-spacing: 1px;
-  padding: 5px 0;
- 
-}
-.contentData  h3,
-h4{
-  font-weight: 400;
-  color: #66451c !important;
-  font-size: 17px;
-  padding: 5px 0;
-}
-.contentData p{
-  font-weight: 300;
-  font-size: 14px;
-  letter-spacing: 1px;
-  line-height: 28px;
 }

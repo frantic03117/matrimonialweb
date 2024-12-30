@@ -6,7 +6,7 @@ import PropTypes from 'prop-types';
 const UserContext = createContext();
 export const UserProvider = ({ children }) => {
     // const navigate = useNavigate();
-    const [user, setUser] = useState({ filledFieldsCount: 0, totalColumns: 1 });
+    const [user, setUser] = useState(false);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [policies, setPolicies] = useState([]);

@@ -23,7 +23,7 @@ const Header = () => {
                 <Link to={'/about'} >About</Link>
             </li>
             {
-                user.name && (
+                user && (
                     <>
                         <li>
                             <Link to={'/users'} >Profiles</Link>
@@ -58,7 +58,7 @@ const Header = () => {
                                 <ul className="inline-flex items-center ms-auto gap-5">
                                     <li>
                                         {
-                                            (user?.name) ? (<>
+                                            user ? (<>
                                                 <Link to={'/user/dashboard'} className="lg:bg-primary lg:text-white px-3 py-2 rounded  text-sm  font-light uppercase btn overflow-hidden relative block">
                                                     <span className="inline-block lg:bg-white text-primary leading-8 text-center rounded-full size-8 mr-2">
                                                         <UserOutlined />

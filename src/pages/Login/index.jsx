@@ -23,7 +23,7 @@ const Login = () => {
 
     return (
         <>
-            <section className='py-20 relative'>
+            <section className='lg:py-20 py-10 relative'>
                 {/* <Loading/> */}
                 <div className="container">
                     <div className="grid grid-cols-12 gap-5">

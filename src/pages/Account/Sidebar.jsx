@@ -1,4 +1,4 @@
-import { CreditCardOutlined, DashboardOutlined, EditOutlined, HeartOutlined, LogoutOutlined, MessageOutlined,  UsergroupAddOutlined } from '@ant-design/icons'
+import { CreditCardOutlined, DashboardOutlined, DeleteOutlined, EditOutlined, HeartOutlined, LogoutOutlined, MessageOutlined,  UsergroupAddOutlined } from '@ant-design/icons'
 import React from 'react'
 import { FaRegHandshake } from "react-icons/fa6";
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -24,6 +24,8 @@ const Sidebar = () => {
             setProfileImage('https://via.placeholder.com/150'); // Fallback image
         }
     }, [user]);
+  
+   
     const handleLogout = async () => {
         await userLogout();
         navigate('/')
@@ -34,11 +36,14 @@ const Sidebar = () => {
                 <div className="w-full p-5 bg-white shadow-md shadow-gray-600 rounded-3xl ">
                     <figure className="w-full mb-10">
                         <label htmlFor="profileImage" className='relative size-[150px] mx-auto  block'>
-                            <span className='absolute size-10 rounded-full bg-white text-center leading-10 bottom-5 -end-5'>
+                            <span className='absolute size-10 rounded-full bg-white text-center leading-10 bottom-[40px] -end-5'>
                                 <EditOutlined />
                             </span>
+                            <span className='absolute size-10 rounded-full bg-white text-center leading-10 bottom-[-5px] -end-3' >
+                                <DeleteOutlined/>
+                            </span>
                             <img src={profileImage} alt="" className=" mx-auto size-[150px]  object-cover overflow-hidden rounded-xl" />
-                            <input type="file" name="" id="profileImage" className="hidden" />
+                            <input type="file" name="" id="profileImage" className="hidden"   />
                         </label>
 
                     </figure>
@@ -84,7 +89,7 @@ const Sidebar = () => {
                             </Link>
                         </li> */}
                         <li>
-                            <button className='flex  gap-4' onClick={handleLogout}>
+                            <button className='flex  gap-4 items-center p-2' onClick={handleLogout}>
                                 <LogoutOutlined /> <span>Logout</span>
                             </button>
                         </li>
