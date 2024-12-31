@@ -4,6 +4,7 @@ import { API_URL, usertoken } from '../../utils';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
 
+// eslint-disable-next-line react/prop-types
 const RegisterUser = ({ mobile }) => {
     const navigate = useNavigate();
     const [fname, setFname] = React.useState('');
@@ -67,7 +68,7 @@ const RegisterUser = ({ mobile }) => {
                 const resp = await axios.post(API_URL + "user", formData);
                 if (resp.data.success == "1") {
                     localStorage.setItem(usertoken, resp.data.token);
-                    navigate('/user/dashboard')
+                    navigate('/subscriptions')
                 } else {
                     setStatus(0);
                     setMessage(resp.data.message);

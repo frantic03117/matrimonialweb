@@ -209,7 +209,12 @@ body {
   border-radius: 0px 0px 10px 10px;
   background-repeat-y: no-repeat;
 }
+.required::after{
+  content: " *";
+  color: #d40000;
+  font-size: 15px;
 
+}
 @keyframes movehor {
   0% {
     background-position: 0px -18px;

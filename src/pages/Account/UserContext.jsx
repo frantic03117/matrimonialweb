@@ -69,6 +69,7 @@ export const UserProvider = ({ children }) => {
             setLoading(false);
         }
     }
+    
     const userLogout = () => {
         localStorage.clear();
         // navigate('/');

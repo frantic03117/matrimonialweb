@@ -19,6 +19,7 @@ import Faqs from "./pages/Faq";
 import PaymentResponse from "./pages/Payment/PaymentResponse";
 import ResetPassword from "./pages/Login/ResetPassword";
 import ProfilePage from "./pages/Account/ProfilePage";
+import Gallery from "./pages/Account/Gallery";
 
 function App() {
   const ThemeRoutes = createBrowserRouter(
@@ -37,6 +38,7 @@ function App() {
         <Route path="/" element={<AccountLayout />}>
           <Route path="/user/dashboard" element={<Dashboard />} />
           <Route path="/user/profile" element={<UpdateProfile />} />
+          <Route path="/gallery" element={<Gallery />} />
           <Route path="/users" element={<FindUsers />} />
           <Route path="/subscriptions" element={<Plans />} />
           <Route path="/proposals/:type" element={<SentProposals />} />
