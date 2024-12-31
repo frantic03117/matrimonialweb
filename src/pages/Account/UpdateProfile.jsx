@@ -32,6 +32,10 @@ const UpdateProfile = () => {
     const [showOccupationInput, setShowOccupationInput] = React.useState(false);
     const [showEducationInput, setShowEducationInput] = React.useState(false);
     const [showEmploymentInput, setShowEmploymentInput] = React.useState(false);
+    const [dob, setDob] = React.useState(null);
+    const handleDob = (value) => {
+        setDob(value)
+    }
     const getyears = () => {
         const yearsArray = [];
 
@@ -72,6 +76,9 @@ const UpdateProfile = () => {
                 if (!['is_deleted', 'is_rejected'].includes(k)) {
                     if (!['city', 'diet', 'occupation', 'state', 'city', 'gautra_avoided'].includes(k)) {
                         arr[k] = user[k]
+                        if(k == "date_of_birth"){
+                            setDob(user[k])
+                        }
                     } else if (['city', 'diet', 'occupation', 'state', 'city'].includes(k)) {
                         arr[k] = user[k]?._id
                     } else if (k == "gautra_avoided") {
@@ -97,7 +104,7 @@ const UpdateProfile = () => {
     const handleFdata = (e) => {
         const { name, value } = e.target;
 
-       
+
 
         setFdata((prev) => {
             let updatedData = { ...prev, [name]: value };
@@ -191,9 +198,11 @@ const UpdateProfile = () => {
             setLoad(true);
             const formd = new FormData();
             Object.entries(fdata).map(([k, v]) => {
-                formd.append(k, v);
+                if(k != "date_of_birth"){
+                    formd.append(k, v);
+                }                
             });
-
+            formd.append('date_of_birth', new Date(dob));
 
             const itm = await axios.put(API_URL + "user/update", formd, {
                 headers: {
@@ -322,15 +331,21 @@ const UpdateProfile = () => {
                                                         required
                                                     /> */}
                                                     <DatePicker
-                                                        selected={fdata.date_of_birth}
-                                                        onChange={handleFdata}
+                                                        selected={dob}
+                                                        onChange={handleDob}
                                                         name="date_of_birth"
                                                         dateFormat="dd/MM/yyyy"
                                                         maxDate={new Date(calculateMinDate())}
                                                         placeholderText="DD/MM/yyyy"
                                                         className="form-control text-black"
                                                         required
-                                                    />
+                                                        showMonthDropdown
+                                                        showYearDropdown
+                                                        dropdownMode="select"
+                                                        scrollableYearDropdown
+                                                        yearDropdownItemNumber={15} />
+
+
 
 
 
