@@ -37,7 +37,8 @@ const Gallery = () => {
             });
 
             if(resp.data.success == "1"){
-                toast.success('Uploaded successfully')
+                toast.success('Uploaded successfully');
+                window.location.reload();
             }
 
 
