@@ -23,7 +23,7 @@ const UpdateProfile = () => {
         education: '',
         employment: ''
     });
-    const [fdata, setFdata] = React.useState({ occupation: "" });
+    const [fdata, setFdata] = React.useState({});
     const [mdata, setMdata] = React.useState([]);
     const token = localStorage.getItem(usertoken);
     const [years, setYears] = React.useState([]);
@@ -74,12 +74,12 @@ const UpdateProfile = () => {
             // eslint-disable-next-line no-unused-vars
             Object.entries(allfields).map(([k, v]) => {
                 if (!['is_deleted', 'is_rejected'].includes(k)) {
-                    if (!['city', 'diet', 'occupation', 'state', 'city', 'gautra_avoided'].includes(k)) {
+                    if (!['city', 'state', 'city', 'gautra_avoided'].includes(k)) {
                         arr[k] = user[k]
-                        if(k == "date_of_birth"){
+                        if (k == "date_of_birth") {
                             setDob(user[k])
                         }
-                    } else if (['city', 'diet', 'occupation', 'state', 'city'].includes(k)) {
+                    } else if (['city', 'state', 'city'].includes(k)) {
                         arr[k] = user[k]?._id
                     } else if (k == "gautra_avoided") {
                         arr[k] = user[k] ? user[k].join(',') : ""
@@ -89,7 +89,6 @@ const UpdateProfile = () => {
             user?.education && user?.education.map(edu => {
                 arr['completed_year'] = edu.completed_year;
                 arr['education'] = edu.education
-                arr['diet'] = edu.diet
                 return true;
             })
             setFdata(arr);
@@ -198,9 +197,9 @@ const UpdateProfile = () => {
             setLoad(true);
             const formd = new FormData();
             Object.entries(fdata).map(([k, v]) => {
-                if(k != "date_of_birth"){
+                if (k != "date_of_birth") {
                     formd.append(k, v);
-                }                
+                }
             });
             formd.append('date_of_birth', new Date(dob));
 
@@ -594,7 +593,7 @@ const UpdateProfile = () => {
                                                     {
                                                         years.map(itm => (
                                                             <>
-                                                                <option selected={fdata?.completed_year} value={itm}>{itm}</option>
+                                                                <option selected={fdata?.completed_year == itm} value={itm}>{itm}</option>
                                                             </>
                                                         ))
                                                     }
