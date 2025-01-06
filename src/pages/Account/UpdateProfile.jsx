@@ -102,9 +102,6 @@ const UpdateProfile = () => {
     };
     const handleFdata = (e) => {
         const { name, value } = e.target;
-
-
-
         setFdata((prev) => {
             let updatedData = { ...prev, [name]: value };
 
@@ -194,10 +191,11 @@ const UpdateProfile = () => {
     const updateProfile = async () => {
 
         try {
+            const exclude = ['password', 'date_of_birth'];
             setLoad(true);
             const formd = new FormData();
             Object.entries(fdata).map(([k, v]) => {
-                if (k != "date_of_birth") {
+                if (!exclude.includes(k)) {
                     formd.append(k, v);
                 }
             });
