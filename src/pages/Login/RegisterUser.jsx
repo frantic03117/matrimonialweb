@@ -3,6 +3,7 @@ import axios from 'axios';
 import { API_URL, usertoken } from '../../utils';
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
+import Loading from '../../components/Loading';
 
 // eslint-disable-next-line react/prop-types
 const RegisterUser = ({ mobile }) => {
@@ -18,6 +19,14 @@ const RegisterUser = ({ mobile }) => {
     const [status, setStatus] = React.useState('');
     const [errors, setErrors] = React.useState([]);
     const [adhar, setAadhar] = React.useState('');
+    const [aadhaarOtp, setaadhaarOtp] = React.useState('')
+    const [aadhaarVerify, setaadhaarVerify] = React.useState(false)
+    const [aadhaarDataOtpGenerateddata, setaadhaarDataOtpGenerateddata] = React.useState(null)
+    const [aadhaarAddress, setaadhaarAddress] = React.useState("")
+    const [aadhaarDob, setaadhaarDob] = React.useState("")
+    const [aadhaarImage, setaadhaarImage] = React.useState("")
+    const [loader, setloader] = React.useState(false)
+
     const validate = () => {
         let err = [];
         if (!fname) {
@@ -81,11 +90,95 @@ const RegisterUser = ({ mobile }) => {
             console.log(err);
         }
     }
+
+    const handleChangeAadhaar = async (aadhaar) => {
+
+        try {
+            setAadhar(aadhaar)
+
+            if (aadhaar.length == 12) {
+                setloader(true)
+                let config = {
+                    method: 'post',
+                    maxBodyLength: Infinity,
+                    url: API_URL + "user/send-aadhaar-otp",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({ aadhaar_number: aadhaar })
+                };
+
+                axios.request(config)
+                    .then((response) => {
+                        console.log(JSON.stringify(response.data.data));
+                        setaadhaarDataOtpGenerateddata(response.data.data)
+                        setloader(false)
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setloader(false)
+
+                    });
+
+
+                // const resp = await axios.post(API_URL + "user/send-aadhaar-otp", JSON.stringify({aadhaar_number : aadhaar}));
+                // console.log(resp)
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+    const handleChangeAadhaarOtp = async (aadhaarOtp) => {
+
+        try {
+            setaadhaarOtp(aadhaarOtp)
+
+            if (aadhaarOtp.length == 6) {
+                setloader(true)
+                let config = {
+                    method: 'post',
+                    maxBodyLength: Infinity,
+                    url: API_URL + "user/recieve-aadhaar-otp",
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    data: JSON.stringify({ transaction_id: aadhaarDataOtpGenerateddata?.transaction_id, otp: aadhaarOtp })
+                };
+
+                axios.request(config)
+                    .then((response) => {
+                        console.log("otp", JSON.stringify(response.data));
+
+                        setFname(response.data?.data?.data?.aadhaar_data?.name)
+                        setGender(response.data?.data?.data?.aadhaar_data?.gender.toLowerCase())
+                        setaadhaarAddress(response.data?.data?.data?.aadhaar_data?.house + " " + response.data?.data?.data?.aadhaar_data?.street + " " + response.data?.data?.data?.aadhaar_data?.district + " " + response.data?.data?.data?.aadhaar_data?.landmark + " " + response.data?.data?.data?.aadhaar_data?.locality + " " + response.data?.data?.data?.aadhaar_data?.state + " " + response.data?.data?.data?.aadhaar_data?.pincode + " " + response.data?.data?.data?.aadhaar_data?.country)
+                        setaadhaarDob(response.data?.data?.data?.aadhaar_data?.date_of_birth)
+                        setaadhaarImage(response.data?.data?.data?.aadhaar_data?.photo_base64)
+                        setaadhaarVerify(response.data?.data?.data?.code == "1002" ? true : false) 
+                        setloader(false)
+
+                    })
+                    .catch((error) => {
+                        console.log(error);
+                        setloader(false)
+                    });
+
+            }
+
+        } catch (err) {
+            console.log(err);
+        }
+
+    }
+
     return (
         <>
             <section>
                 <div className="container">
-                    <div className="grid grid-cols-12 gap-5">
+                    <div className="grid grid-cols-12 gap-5 mb-10">
                         {
                             message && (
                                 <>
@@ -98,6 +191,7 @@ const RegisterUser = ({ mobile }) => {
                                 </>
                             )
                         }
+                        
                         <div className="col-span-12">
                             <div className={`w-full`}>
                                 <ul className='text-black list-disc text-sm'>
@@ -114,36 +208,19 @@ const RegisterUser = ({ mobile }) => {
 
                             </div>
                         </div>
-
-                        <div className="col-span-6">
-                            <div className="form-group">
-                                <label htmlFor="">Enter First Name</label>
-                                <input type="text" value={fname} onChange={(e) => setFname(e.target.value)} className="form-control" />
-                                <span className='block text-red-500 text-xs'>
-                                    {errors.find(obj => obj.path == "fname")?.msg}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-span-6">
-                            <div className="form-group">
-                                <label htmlFor="">Enter Last Name</label>
-                                <input type="text" value={lname} onChange={(e) => setLName(e.target.value)} className="form-control" />
-                            </div>
-                        </div>
-
-                        <div className="col-span-6">
-                            <div className="form-group">
-                                <label htmlFor="">Enter Email</label>
-                                <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" />
-                                <span className='block text-red-500 text-xs'>
-                                    {errors.find(obj => obj.path == "email")?.msg}
-                                </span>
-                            </div>
-                        </div>
+                        {
+                            loader
+                            ?
+                                <Loading/>
+                            :
+                            null
+                        }
                         <div className="col-span-6">
                             <div className="form-group">
                                 <label htmlFor="">Enter Aadhar</label>
-                                <input type="text" value={adhar} maxLength={12} minLength={12} onChange={(e) => setAadhar(e.target.value)} className="form-control" />
+                                <input type="text" value={adhar} maxLength={12} minLength={12}
+                                    onChange={(e) => handleChangeAadhaar(e.target.value)}
+                                    className="form-control" />
                                 <span className='block text-red-500 text-xs'>
                                     {errors.find(obj => obj.path == "adhar")?.msg}
                                 </span>
@@ -151,47 +228,106 @@ const RegisterUser = ({ mobile }) => {
                         </div>
                         <div className="col-span-6">
                             <div className="form-group">
-                                <label htmlFor="">Enter Password</label>
-                                <input type="password" value={conf_password} onChange={(e) => setConfPassword(e.target.value)} className="form-control" />
-                                <span className='block text-red-500 text-xs'>
-                                    {errors.find(obj => obj.path == "password")?.msg}
-                                </span>
+                                <label htmlFor="">Enter Aadhar Otp</label>
+                                <input type="password" value={aadhaarOtp} maxLength={12} minLength={12} onChange={(e) => handleChangeAadhaarOtp(e.target.value)} className="form-control" />
+                                {/* <span className='block text-red-500 text-xs'>
+                                    {errors.find(obj => obj.path == "adhar")?.msg}
+                                </span> */}
                             </div>
                         </div>
-                        <div className="col-span-6">
-                            <div className="form-group">
-                                <label htmlFor="">Confirm Password</label>
-                                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" />
-                                <span className='block text-red-500 text-xs'>
-                                    {errors.find(obj => obj.path == "password")?.msg}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-span-6">
-                            <div className="form-group">
-                                <label htmlFor="">Select Gender</label>
-                                <div className="flex gap-2">
-                                    <Radio name="gender" onChange={() => setGender('Male')} value="male" label="Male" />
-                                    <Radio name="gender" onChange={() => setGender('Female')} value="Female" label="Female" />
+                        {aadhaarVerify ?
+                            <>
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Enter First Name</label>
+                                        <input type="text" value={fname} onChange={(e) => setFname(e.target.value)} className="form-control" />
+                                        <span className='block text-red-500 text-xs'>
+                                            {errors.find(obj => obj.path == "fname")?.msg}
+                                        </span>
+                                    </div>
                                 </div>
-                                <span className='block text-red-500 text-xs'>
-                                    {errors.find(obj => obj.path == "gender")?.msg}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-span-6">
-                            <div className="form-group">
-                                <label htmlFor="">Select Profile Photo</label>
-                                <input type="file" onChange={handleFile} className="form-control" />
-                                <span className='block text-red-500 text-xs'>
-                                    {errors.find(obj => obj.path == "file")?.msg}
-                                </span>
-                            </div>
-                        </div>
-                        <div className="col-span-12">
-                            <button disabled={!fname || !password || !email || !gender || !adhar} onClick={handleRegister} className="bg-primary disabled:bg-gray-600 py-2 px-10 text-white rounded">Submit</button>
-                        </div>
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Enter Last Name</label>
+                                        <input type="text" value={lname} onChange={(e) => setLName(e.target.value)} className="form-control" />
+                                    </div>
+                                </div>
 
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Enter Email</label>
+                                        <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} className="form-control" />
+                                        <span className='block text-red-500 text-xs'>
+                                            {errors.find(obj => obj.path == "email")?.msg}
+                                        </span>
+                                    </div>
+                                </div>
+
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Enter Password</label>
+                                        <input type="password" value={conf_password} onChange={(e) => setConfPassword(e.target.value)} className="form-control" />
+                                        <span className='block text-red-500 text-xs'>
+                                            {errors.find(obj => obj.path == "password")?.msg}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Confirm Password</label>
+                                        <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="form-control" />
+                                        <span className='block text-red-500 text-xs'>
+                                            {errors.find(obj => obj.path == "password")?.msg}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Select Gender</label>
+                                        <div className="flex gap-2">
+                                            <Radio name="gender" onChange={() => setGender('Male')} value="male" label="Male" />
+                                            <Radio name="gender" onChange={() => setGender('Female')} value="Female" label="Female" />
+                                        </div>
+                                        <span className='block text-red-500 text-xs'>
+                                            {errors.find(obj => obj.path == "gender")?.msg}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Select Profile Photo</label>
+                                        <input type="file" onChange={handleFile} className="form-control" />
+                                        <span className='block text-red-500 text-xs'>
+                                            {errors.find(obj => obj.path == "file")?.msg}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="col-span-6">
+                                    <div className="form-group">
+                                        <label htmlFor="">Aaadhaar Dob</label>
+                                        <input type="text" value={aadhaarDob}
+                                            // onChange={(e) => setaadhaarDob(e.target.value)} 
+                                            className="form-control" />
+                                        {/* <span className='block text-red-500 text-xs'>
+                                    {errors.find(obj => obj.path == "password")?.msg}
+                                </span> */}
+                                    </div>
+                                </div>
+                                <div className="col-span-12">
+                                    <div className="form-group">
+                                        <label htmlFor="">Aadhaar Address</label>
+                                        <input type="text" value={aadhaarAddress} className="form-control" />
+                                        {/* <span className='block text-red-500 text-xs'>
+                                    {errors.find(obj => obj.path == "file")?.msg}
+                                </span> */}
+                                    </div>
+                                </div>
+
+                                <div className="col-span-12">
+                                    <button disabled={!fname || !password || !email || !gender || !adhar} onClick={handleRegister} className="bg-primary disabled:bg-gray-600 py-2 px-10 text-white rounded">Submit</button>
+                                </div>
+                            </>
+                            : null}
                     </div>
                 </div>
             </section>
