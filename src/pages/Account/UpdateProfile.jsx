@@ -378,6 +378,13 @@ const UpdateProfile = () => {
                                             </div>
                                             <div className="lg:col-span-3 col-span-12">
                                                 <div className="form-group">
+                                                    <label htmlFor="" className='required'>Native Address</label>
+                                                    <input type="text" name="native_address" onChange={handleFdata} value={fdata?.native_address} id="" className="form-control" required />
+                                                  
+                                                </div>
+                                            </div>
+                                            <div className="lg:col-span-3 col-span-12">
+                                                <div className="form-group">
                                                     <label htmlFor="" className='required'>Father Gautra</label>
                                                     <input type="text" name="fathergautra" onChange={handleFdata} value={fdata?.fathergautra} id="" className="form-control" required />
                                                     {errors.fathergautra && <span className="text-red-500 text-sm">{errors.fathergautra}</span>}
