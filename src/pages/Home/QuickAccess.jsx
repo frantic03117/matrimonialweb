@@ -1,6 +1,9 @@
 // import React from 'react'
 
-const QuickAccess = ({ image, icon, title }) => {
+import PropTypes from "prop-types"
+import { Link } from "react-router-dom"
+
+const QuickAccess = ({ image, icon, title, url }) => {
     return (
         <>
             <div className="w-full  quick_access">
@@ -15,9 +18,9 @@ const QuickAccess = ({ image, icon, title }) => {
                             <p className="lg:text-md text-xs">1200+ Profiles</p>
                         </div>
                         <div className="w-full *:transition-all flex justify-center">
-                            <button className="border viewquick border-white px-2 w-40 lg:py-3 py-1 text-white">
+                            <Link to={url} className="border block text-center viewquick border-white px-2 w-40 lg:py-3 py-1 text-white">
                                 View All
-                            </button>
+                            </Link>
                         </div>
                     </div>
                 </div>
@@ -30,3 +33,11 @@ const QuickAccess = ({ image, icon, title }) => {
 }
 
 export default QuickAccess
+
+
+QuickAccess.propTypes = { 
+    image : PropTypes.string,
+    icon : PropTypes.icon,
+    title :PropTypes.string,
+    url : PropTypes.string
+}

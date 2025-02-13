@@ -20,6 +20,8 @@ import PaymentResponse from "./pages/Payment/PaymentResponse";
 import ResetPassword from "./pages/Login/ResetPassword";
 import ProfilePage from "./pages/Account/ProfilePage";
 import Gallery from "./pages/Account/Gallery";
+import Blogs from "./pages/blogs";
+import SingleBlog from "./pages/blogs/SingleBlog";
 
 function App() {
   const ThemeRoutes = createBrowserRouter(
@@ -33,7 +35,8 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/policy/:url" element={<AppPolicy />} />
           <Route path="/faqs" element={<Faqs />} />
-
+          <Route path="/blogs" element={<Blogs/>} />
+          <Route path="/blog/:url" element={<SingleBlog/>} />
         </Route>
         <Route path="/" element={<AccountLayout />}>
           <Route path="/user/dashboard" element={<Dashboard />} />

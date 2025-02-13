@@ -11,11 +11,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const UpdateProfile = () => {
     const { user, loading } = useUser();
-
-
-
-    console.log("user", user)
-    // State to manage error messages
     const [errors, setErrors] = useState({
         name: '',
         last_name: '',
@@ -38,8 +33,6 @@ const UpdateProfile = () => {
     }
     const getyears = () => {
         const yearsArray = [];
-
-        // Loop through the years from 1975 to the current year
         for (let year = 1975; year <= new Date().getFullYear(); year++) {
             yearsArray.push(year);
         }
@@ -186,7 +179,26 @@ const UpdateProfile = () => {
 
 
 
-
+    function calculateAge(dateOfBirth) {
+        const birthDate = new Date(dateOfBirth);
+        const today = new Date();
+        let age = today.getFullYear() - birthDate.getFullYear();
+        
+        // Adjust if the birthday hasn't occurred yet this year
+        const hasBirthdayOccurred = 
+            today.getMonth() > birthDate.getMonth() || 
+            (today.getMonth() === birthDate.getMonth() && today.getDate() >= birthDate.getDate());
+        
+        if (!hasBirthdayOccurred) {
+            age--;
+        }
+        
+        return age;
+    }
+    
+    const age = calculateAge("2000-05-15"); // Example date of birth
+    console.log(age); // Output: Age in years
+    
 
     const updateProfile = async () => {
 
@@ -343,12 +355,20 @@ const UpdateProfile = () => {
                                                         yearDropdownItemNumber={15} />
 
 
-
+                                                    {
+                                                        fdata?.date_of_birth && (
+                                                            <>
+                                                                <div className="w-full">
+                                                                    Age : {calculateAge(fdata?.date_of_birth)}
+                                                                </div>
+                                                            </>
+                                                        )
+                                                    }
 
 
                                                     {errors.date_of_birth && <span className="text-red-500 text-sm">{errors.date_of_birth}</span>}
 
-
+                                                    
                                                 </div>
                                             </div>
                                             <div className="col-span-12">

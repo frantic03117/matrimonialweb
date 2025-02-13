@@ -92,16 +92,16 @@ const Home = () => {
           </div>
           <div className="grid grid-cols-12 gap-6">
             <div className="lg:col-span-3 col-span-6">
-              <QuickAccess image={one} icon={hall} title={'Easy Signup'} />
+              <QuickAccess image={one} icon={hall} url={'/login'} title={'Easy Signup'} />
             </div>
             <div className="lg:col-span-3 col-span-6">
-              <QuickAccess image={two} icon={couple} title={'Browse Profiles'} />
+              <QuickAccess image={two} icon={couple} url={'/login'} title={'Browse Profiles'} />
             </div>
             <div className="lg:col-span-3 col-span-6">
-              <QuickAccess image={three} icon={icon3} title={'Blog & Articles'} />
+              <QuickAccess image={three} icon={icon3} url={'/blogs'} title={'Blog & Articles'} />
             </div>
             <div className="lg:col-span-3 col-span-6">
-              <QuickAccess image={four} icon={icon4} title={'Success Stories'} />
+              <QuickAccess image={four} icon={icon4} url={'/blogs'} title={'Success Stories'} />
             </div>
 
           </div>
