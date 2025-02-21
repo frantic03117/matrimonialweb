@@ -221,7 +221,7 @@ const RegisterUser = ({ mobile }) => {
                         }
                         <div className="col-span-6">
                             <div className="form-group">
-                                <label htmlFor="">Enter Aadhar</label>
+                                <label htmlFor="">Enter Groom/Bride  Aadhar</label>
                                 <input type="text" value={adhar} maxLength={12} minLength={12}
                                     onChange={(e) => handleChangeAadhaar(e.target.value)}
                                     className="form-control" />
