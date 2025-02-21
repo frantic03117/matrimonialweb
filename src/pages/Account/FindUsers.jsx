@@ -194,7 +194,7 @@ const FindUsers = () => {
                         <div className="grid grid-cols-12 gap-4">
                             <div className="lg:col-span-2 col-span-4">
                                 <label htmlFor="">Select State</label>
-                                <select onChange={(e) => setSelectedState(e.target.value)} className="form-control text-xs">
+                                <select onChange={(e) => setSelectedState(e.target.value)} className="px-2 py-1 text-xs outline-none border border-blue-gray-200 w-full rounded">
                                     <option value="">All</option>
                                     {
                                         states.map(itm => (
@@ -207,7 +207,7 @@ const FindUsers = () => {
                             </div>
                             <div className="lg:col-span-2 col-span-4">
                                 <label htmlFor="">Select City</label>
-                                <select onChange={(e) => setSelectedCity(e.target.value)} className="form-control">
+                                <select onChange={(e) => setSelectedCity(e.target.value)} className="px-2 py-1 text-xs outline-none border border-blue-gray-200 w-full rounded">
                                     <option value="">All</option>
                                     {
                                         cities.map(itm => (
