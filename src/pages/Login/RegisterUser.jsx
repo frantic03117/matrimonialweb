@@ -65,6 +65,7 @@ const RegisterUser = ({ mobile }) => {
     const handleRegister = async () => {
         try {
             if (validate()) {
+                console.log(aadhaarImage);
                 const formData = new FormData();
                 formData.append('name', fname);
                 formData.append('last_name', lname);
@@ -157,7 +158,7 @@ const RegisterUser = ({ mobile }) => {
                         setaadhaarAddress(response.data?.data?.data?.aadhaar_data?.house + " " + response.data?.data?.data?.aadhaar_data?.street + " " + response.data?.data?.data?.aadhaar_data?.district + " " + response.data?.data?.data?.aadhaar_data?.landmark + " " + response.data?.data?.data?.aadhaar_data?.locality + " " + response.data?.data?.data?.aadhaar_data?.state + " " + response.data?.data?.data?.aadhaar_data?.pincode + " " + response.data?.data?.data?.aadhaar_data?.country)
                         setaadhaarDob(response.data?.data?.data?.aadhaar_data?.date_of_birth)
                         setaadhaarImage(response.data?.data?.data?.aadhaar_data?.photo_base64)
-                        setaadhaarVerify(response.data?.data?.data?.code == "1002" ? true : false) 
+                        setaadhaarVerify(response.data?.data?.data?.code == "1002" ? true : false)
                         setloader(false)
 
                     })
@@ -191,10 +192,13 @@ const RegisterUser = ({ mobile }) => {
                                 </>
                             )
                         }
-                        
+
                         <div className="col-span-12">
                             <div className={`w-full`}>
                                 <ul className='text-black list-disc text-sm'>
+                                    <li>
+                                        Only the details of the groom and bride should be entered
+                                    </li>
                                     <li>
                                         Profile should have data of prospective groom/bride
                                     </li>
@@ -210,10 +214,10 @@ const RegisterUser = ({ mobile }) => {
                         </div>
                         {
                             loader
-                            ?
-                                <Loading/>
-                            :
-                            null
+                                ?
+                                <Loading />
+                                :
+                                null
                         }
                         <div className="col-span-6">
                             <div className="form-group">

@@ -20,18 +20,25 @@ const FindUsers = () => {
     const [cities, setCities] = React.useState([]);
     const [selectedState, setSelectedState] = React.useState('');
     const [selectedCity, setSelectedCity] = React.useState('');
+    const [filters, setFilters] = React.useState({});
     const [pagination, setPagination] = React.useState({
         "totalDocs": 1,
         "totalPage": 1,
         "perPage": 1,
         "page": "1"
     });
+    const [mvals, setMvals] = React.useState([]);
     const [suubscription, setsuubscription] = React.useState([])
     const [page, setPage] = React.useState(1);
+
     const getstates = async () => {
         const items = await axios.get(API_URL + "surajmal/core-values?key=state");
         setStates(items.data.data);
 
+    }
+    const getmvals = async () => {
+        const resp = await axios.get(API_URL + "surajmal/core-values");
+        setMvals(resp.data.data);
     }
 
     const getcities = async () => {
@@ -54,7 +61,7 @@ const FindUsers = () => {
             const subscription = await axios.get(API_URL + `cart/user`, {
                 headers: {
                     Authorization: "Bearer " + token
-                }
+                },
             });
 
             console.log("subs", subscription.data.data)
@@ -72,9 +79,15 @@ const FindUsers = () => {
 
             } else {
 
-                const resp = await axios.get(API_URL + `user/all?page=${page}&state=${selectedState}&city=${selectedCity}`, {
+                const resp = await axios.get(API_URL + `user/all`, {
                     headers: {
                         Authorization: "Bearer " + token
+                    },
+                    params: {
+                        page: page,
+                        state: selectedState,
+                        city: selectedCity,
+                        ...filters
                     }
                 });
                 setUsers(resp.data.data);
@@ -88,6 +101,14 @@ const FindUsers = () => {
         }
 
 
+    }
+    const handleFilters = (e) => {
+        const key = e.target.name;
+        const value = e.target.value;
+        setFilters((prev) => ({
+            ...prev,
+            [key]: value
+        }))
     }
     const filterdata = () => {
         getusers();
@@ -132,6 +153,7 @@ const FindUsers = () => {
     React.useEffect(() => {
         getstates();
         getusers();
+        getmvals();
     }, []);
     return (
         <>
@@ -170,7 +192,6 @@ const FindUsers = () => {
                     </div>
                     <div className="w-full mb-5">
                         <div className="grid grid-cols-12 gap-4">
-
                             <div className="lg:col-span-2 col-span-4">
                                 <label htmlFor="">Select State</label>
                                 <select onChange={(e) => setSelectedState(e.target.value)} className="form-control text-xs">
@@ -197,6 +218,55 @@ const FindUsers = () => {
                                     }
 
                                 </select>
+                            </div>
+                            <div className="col-span-2">
+
+                                <label htmlFor="">Status</label>
+                                <select name="marital_status" onChange={handleFilters} className={'px-2 py-1 text-xs outline-none border border-blue-gray-200 w-full rounded'} >
+                                    <option value="">All</option>
+                                    {
+                                        ['single', 'married', 'divorced', 'widowed'].map(itm => (
+                                            <>
+                                                <option value={itm}>{itm}</option>
+                                            </>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                            <div className="col-span-2">
+                                <label htmlFor="">Employment</label>
+                                <input name="employment" type='text' onChange={handleFilters} className={'px-2 py-1 text-xs outline-none border border-blue-gray-200 w-full rounded'} />
+                            </div>
+
+                            <div className="col-span-2">
+                                <label htmlFor="">Drink status</label>
+                                <select name="drink_status" onChange={handleFilters} className={'px-2 py-1 text-xs outline-none border border-blue-gray-200 w-full rounded'} >
+                                    <option value="">All</option>
+                                    {
+                                        ['Not at all', 'Socially', 'Teetotaler', 'Regularly'].map(itm => (
+                                            <>
+                                                <option value={itm}>{itm}</option>
+                                            </>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                            <div className="col-span-1">
+                                <label htmlFor="">Diet</label>
+                                <select name="diet" onChange={handleFilters} className={'px-2 py-1 text-xs outline-none border border-blue-gray-200 w-full rounded'} >
+                                    <option value="">All</option>
+                                    {
+                                        mvals.filter(obj => obj.column_type == "diet").map(itm => (
+                                            <>
+                                                <option value={itm.title}>{itm.title}</option>
+                                            </>
+                                        ))
+                                    }
+                                </select>
+                            </div>
+                            <div className="col-span-2">
+                                <label htmlFor="">Search Keyword</label>
+                                <input type="text" name="user_keyword" onChange={handleFilters} className={'px-2 py-1 text-xs outline-none border border-blue-gray-200 w-full rounded'} />
                             </div>
                             <div className="lg:col-span-2 col-span-4 hidden">
                                 <label htmlFor="">Status</label>
@@ -240,7 +310,7 @@ const FindUsers = () => {
                                 suubscription.length == 0
                                     ?
                                     <>
-                                        <div className="p-4 bg-primary/20 text-primary" onClick={()=> navigate('/subscriptions')}>
+                                        <div className="p-4 bg-primary/20 text-primary" onClick={() => navigate('/subscriptions')}>
 
 
                                             Please Donate to the Society
