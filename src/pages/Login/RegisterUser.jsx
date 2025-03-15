@@ -19,15 +19,16 @@ const RegisterUser = ({ mobile }) => {
     const [status, setStatus] = React.useState('');
     const [errors, setErrors] = React.useState([]);
     const [adhar, setAadhar] = React.useState('');
-    const [aadhaarOtp, setaadhaarOtp] = React.useState('')
-    const [aadhaarVerify, setaadhaarVerify] = React.useState(false)
-    const [aadhaarDataOtpGenerateddata, setaadhaarDataOtpGenerateddata] = React.useState(null)
+    // const [aadhaarOtp, setaadhaarOtp] = React.useState('')
+    const [aadhaarVerify, setaadhaarVerify] = React.useState(true)
+    // const [aadhaarDataOtpGenerateddata, setaadhaarDataOtpGenerateddata] = React.useState(null)
     const [aadhaarAddress, setaadhaarAddress] = React.useState("")
     const [aadhaarDob, setaadhaarDob] = React.useState("")
-    const [aadhaarImage, setaadhaarImage] = React.useState("")
+    // const [aadhaarImage, setaadhaarImage] = React.useState("")
     const [loader, setloader] = React.useState(false)
 
     const validate = () => {
+        setaadhaarVerify(true);
         let err = [];
         if (!fname) {
             err.push({ path: "fname", msg: "First name is required" })
@@ -64,8 +65,9 @@ const RegisterUser = ({ mobile }) => {
     }
     const handleRegister = async () => {
         try {
+            setloader(true)
             if (validate()) {
-                console.log(aadhaarImage);
+                // console.log(aadhaarImage);
                 const formData = new FormData();
                 formData.append('name', fname);
                 formData.append('last_name', lname);
@@ -75,6 +77,8 @@ const RegisterUser = ({ mobile }) => {
                 formData.append('file', file);
                 formData.append('mobile', mobile);
                 formData.append('adhar_no', adhar);
+                formData.append('date_of_birth', aadhaarDob);
+                formData.append('native_address', aadhaarAddress);
                 const resp = await axios.post(API_URL + "user", formData);
                 if (resp.data.success == "1") {
                     localStorage.setItem(usertoken, resp.data.token);
@@ -83,12 +87,15 @@ const RegisterUser = ({ mobile }) => {
                     setStatus(0);
                     setMessage(resp.data.message);
                 }
+                setloader(false);
             } else {
                 setStatus(0);
                 setMessage('Invalid request');
             }
         } catch (err) {
             console.log(err);
+        }finally{
+            setloader(false);
         }
     }
 
@@ -96,84 +103,84 @@ const RegisterUser = ({ mobile }) => {
 
         try {
             setAadhar(aadhaar)
+            // setaadhaarDataOtpGenerateddata(aadhaar)
+            // if (aadhaar.length == 12) {
+            //     setloader(true)
+            //     let config = {
+            //         method: 'post',
+            //         maxBodyLength: Infinity,
+            //         url: API_URL + "user/send-aadhaar-otp",
+            //         headers: {
+            //             'Content-Type': 'application/json'
+            //         },
+            //         data: JSON.stringify({ aadhaar_number: aadhaar })
+            //     };
 
-            if (aadhaar.length == 12) {
-                setloader(true)
-                let config = {
-                    method: 'post',
-                    maxBodyLength: Infinity,
-                    url: API_URL + "user/send-aadhaar-otp",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: JSON.stringify({ aadhaar_number: aadhaar })
-                };
+            //     axios.request(config)
+            //         .then((response) => {
+            //             console.log(JSON.stringify(response.data.data));
+            //             setaadhaarDataOtpGenerateddata(response.data.data)
+            //             setloader(false)
 
-                axios.request(config)
-                    .then((response) => {
-                        console.log(JSON.stringify(response.data.data));
-                        setaadhaarDataOtpGenerateddata(response.data.data)
-                        setloader(false)
+            //         })
+            //         .catch((error) => {
+            //             console.log(error);
+            //             setloader(false)
 
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setloader(false)
-
-                    });
+            //         });
 
 
-                // const resp = await axios.post(API_URL + "user/send-aadhaar-otp", JSON.stringify({aadhaar_number : aadhaar}));
-                // console.log(resp)
-            }
-
-        } catch (err) {
-            console.log(err);
-        }
-
-    }
-    const handleChangeAadhaarOtp = async (aadhaarOtp) => {
-
-        try {
-            setaadhaarOtp(aadhaarOtp)
-
-            if (aadhaarOtp.length == 6) {
-                setloader(true)
-                let config = {
-                    method: 'post',
-                    maxBodyLength: Infinity,
-                    url: API_URL + "user/recieve-aadhaar-otp",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    data: JSON.stringify({ transaction_id: aadhaarDataOtpGenerateddata?.transaction_id, otp: aadhaarOtp })
-                };
-
-                axios.request(config)
-                    .then((response) => {
-                        console.log("otp", JSON.stringify(response.data));
-
-                        setFname(response.data?.data?.data?.aadhaar_data?.name)
-                        setGender(response.data?.data?.data?.aadhaar_data?.gender.toLowerCase())
-                        setaadhaarAddress(response.data?.data?.data?.aadhaar_data?.house + " " + response.data?.data?.data?.aadhaar_data?.street + " " + response.data?.data?.data?.aadhaar_data?.district + " " + response.data?.data?.data?.aadhaar_data?.landmark + " " + response.data?.data?.data?.aadhaar_data?.locality + " " + response.data?.data?.data?.aadhaar_data?.state + " " + response.data?.data?.data?.aadhaar_data?.pincode + " " + response.data?.data?.data?.aadhaar_data?.country)
-                        setaadhaarDob(response.data?.data?.data?.aadhaar_data?.date_of_birth)
-                        setaadhaarImage(response.data?.data?.data?.aadhaar_data?.photo_base64)
-                        setaadhaarVerify(response.data?.data?.data?.code == "1002" ? true : false)
-                        setloader(false)
-
-                    })
-                    .catch((error) => {
-                        console.log(error);
-                        setloader(false)
-                    });
-
-            }
+            //     // const resp = await axios.post(API_URL + "user/send-aadhaar-otp", JSON.stringify({aadhaar_number : aadhaar}));
+            //     // console.log(resp)
+            // }
 
         } catch (err) {
             console.log(err);
         }
 
     }
+    // const handleChangeAadhaarOtp = async (aadhaarOtp) => {
+
+    //     try {
+    //         setaadhaarOtp(aadhaarOtp)
+
+    //         if (aadhaarOtp.length == 6) {
+    //             setloader(true)
+    //             let config = {
+    //                 method: 'post',
+    //                 maxBodyLength: Infinity,
+    //                 url: API_URL + "user/recieve-aadhaar-otp",
+    //                 headers: {
+    //                     'Content-Type': 'application/json'
+    //                 },
+    //                 data: JSON.stringify({ transaction_id: aadhaarDataOtpGenerateddata?.transaction_id, otp: aadhaarOtp })
+    //             };
+
+    //             axios.request(config)
+    //                 .then((response) => {
+    //                     console.log("otp", JSON.stringify(response.data));
+
+    //                     setFname(response.data?.data?.data?.aadhaar_data?.name)
+    //                     setGender(response.data?.data?.data?.aadhaar_data?.gender.toLowerCase())
+    //                     setaadhaarAddress(response.data?.data?.data?.aadhaar_data?.house + " " + response.data?.data?.data?.aadhaar_data?.street + " " + response.data?.data?.data?.aadhaar_data?.district + " " + response.data?.data?.data?.aadhaar_data?.landmark + " " + response.data?.data?.data?.aadhaar_data?.locality + " " + response.data?.data?.data?.aadhaar_data?.state + " " + response.data?.data?.data?.aadhaar_data?.pincode + " " + response.data?.data?.data?.aadhaar_data?.country)
+    //                     setaadhaarDob(response.data?.data?.data?.aadhaar_data?.date_of_birth)
+    //                     setaadhaarImage(response.data?.data?.data?.aadhaar_data?.photo_base64)
+    //                     setaadhaarVerify(response.data?.data?.data?.code == "1002" ? true : false)
+    //                     setloader(false)
+
+    //                 })
+    //                 .catch((error) => {
+    //                     console.log(error);
+    //                     setloader(false)
+    //                 });
+
+    //         }
+
+    //     } catch (err) {
+    //         console.log(err);
+    //     }
+
+    // }
 
     return (
         <>
@@ -219,7 +226,7 @@ const RegisterUser = ({ mobile }) => {
                                 :
                                 null
                         }
-                        <div className="col-span-6">
+                        {/* <div className="col-span-6">
                             <div className="form-group">
                                 <label htmlFor="">Enter Groom/Bride  Aadhar</label>
                                 <input type="text" value={adhar} maxLength={12} minLength={12}
@@ -234,11 +241,8 @@ const RegisterUser = ({ mobile }) => {
                             <div className="form-group">
                                 <label htmlFor="">Enter Aadhar Otp</label>
                                 <input type="password" value={aadhaarOtp} maxLength={12} minLength={12} onChange={(e) => handleChangeAadhaarOtp(e.target.value)} className="form-control" />
-                                {/* <span className='block text-red-500 text-xs'>
-                                    {errors.find(obj => obj.path == "adhar")?.msg}
-                                </span> */}
                             </div>
-                        </div>
+                        </div> */}
                         {aadhaarVerify ?
                             <>
                                 <div className="col-span-6">
@@ -308,8 +312,19 @@ const RegisterUser = ({ mobile }) => {
                                 </div>
                                 <div className="col-span-6">
                                     <div className="form-group">
+                                        <label htmlFor="">Enter Groom/Bride  Aadhar</label>
+                                        <input type="text" value={adhar} maxLength={12} minLength={12}
+                                            onChange={(e) => handleChangeAadhaar(e.target.value)}
+                                            className="form-control" />
+                                        <span className='block text-red-500 text-xs'>
+                                            {errors.find(obj => obj.path == "adhar")?.msg}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className="col-span-6">
+                                    <div className="form-group">
                                         <label htmlFor="">Aaadhaar Dob</label>
-                                        <input type="text" value={aadhaarDob}
+                                        <input type="date" onChange={(e) => setaadhaarDob(e.target.value)} value={aadhaarDob}
                                             // onChange={(e) => setaadhaarDob(e.target.value)} 
                                             className="form-control" />
                                         {/* <span className='block text-red-500 text-xs'>
@@ -320,7 +335,7 @@ const RegisterUser = ({ mobile }) => {
                                 <div className="col-span-12">
                                     <div className="form-group">
                                         <label htmlFor="">Aadhaar Address</label>
-                                        <input type="text" value={aadhaarAddress} className="form-control" />
+                                        <input type="text" onChange={(e) => setaadhaarAddress(e.target.value)} value={aadhaarAddress} className="form-control" />
                                         {/* <span className='block text-red-500 text-xs'>
                                     {errors.find(obj => obj.path == "file")?.msg}
                                 </span> */}
