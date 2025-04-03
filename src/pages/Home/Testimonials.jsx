@@ -54,10 +54,10 @@ const Testimonials = ({ bg, pb }) => {
         <>
             <section className={`pt-20 overflow-hidden max-w-[100vw] ${pb} ${bg}`}>
                 <div className="container">
-                    <div className="w-full  text-center">
+                    <div className="w-full hidden  text-center">
                         <h2 className="section_title">Trust by  1500+ Couples</h2>
                     </div>
-                    <div className="grid grid-cols-12">
+                    <div className=" grid-cols-12 hidden">
                         <div className="col-span-12">
                             <Slider  {...tsettings}>
                                 {

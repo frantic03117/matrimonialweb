@@ -35,9 +35,10 @@ function App() {
           <Route path="/about" element={<About />} />
           <Route path="/policy/:url" element={<AppPolicy />} />
           <Route path="/faqs" element={<Faqs />} />
-          <Route path="/blogs" element={<Blogs/>} />
-          <Route path="/blog/:url" element={<SingleBlog/>} />
+          <Route path="/blogs" element={<Blogs />} />
+          <Route path="/blog/:url" element={<SingleBlog />} />
         </Route>
+
         <Route path="/" element={<AccountLayout />}>
           <Route path="/user/dashboard" element={<Dashboard />} />
           <Route path="/user/profile" element={<UpdateProfile />} />

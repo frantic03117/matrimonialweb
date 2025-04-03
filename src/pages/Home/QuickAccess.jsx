@@ -15,7 +15,7 @@ const QuickAccess = ({ image, icon, title, url }) => {
                         </div>
                         <div className="w-full  *:transition-all *:mb-4 mb-4 text-center text-white">
                             <h2 className="cursive  lg:text-xl text-sm font-bold">{title}</h2>
-                            <p className="lg:text-md text-xs">1200+ Profiles</p>
+                            <p className="lg:text-md text-xs hidden">1200+ Profiles</p>
                         </div>
                         <div className="w-full *:transition-all flex justify-center">
                             <Link to={url} className="border block text-center viewquick border-white px-2 w-40 lg:py-3 py-1 text-white">
@@ -35,9 +35,9 @@ const QuickAccess = ({ image, icon, title, url }) => {
 export default QuickAccess
 
 
-QuickAccess.propTypes = { 
-    image : PropTypes.string,
-    icon : PropTypes.icon,
-    title :PropTypes.string,
-    url : PropTypes.string
+QuickAccess.propTypes = {
+    image: PropTypes.string,
+    icon: PropTypes.icon,
+    title: PropTypes.string,
+    url: PropTypes.string
 }

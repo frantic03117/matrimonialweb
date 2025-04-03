@@ -38,14 +38,14 @@ const PaymentResponse = () => {
                     </>
                 ) : (
                     <>
-                        <div class="container">
+                        <div className="container">
                             {
                                 cart.payment_status == "SUCCESS" && (
                                     <>
-                                        <div class="grid grid-cols-12">
+                                        <div className="grid grid-cols-12">
                                             <div className="col-span-3"></div>
-                                            <div class="col-span-6">
-                                                <div class="message-box shadow-md text-center shadow-primary/50  border-l-2 border-green-400 p-5">
+                                            <div className="col-span-6">
+                                                <div className="message-box shadow-md text-center shadow-primary/50  border-l-2 border-green-400 p-5">
                                                     <span className='text-[7rem] flex justify-center items-center mb-10  text-green-400'>
                                                         <FaRegCheckCircle />
                                                     </span>
@@ -91,11 +91,11 @@ const PaymentResponse = () => {
                             {
                                 cart.payment_status != "SUCCESS" && (
                                     <>
-                                        <div class="grid grid-cols-12">
+                                        <div className="grid grid-cols-12">
                                             <div className="col-span-3"></div>
-                                            <div class="col-span-6">
-                                                <div class="message-box _success">
-                                                    <i class="fa fa-check-circle" aria-hidden="true"></i>
+                                            <div className="col-span-6">
+                                                <div className="message-box _success">
+                                                    <i className="fa fa-check-circle" aria-hidden="true"></i>
                                                     <h2> Your payment was {cart.payment_status} </h2>
                                                     <p> Thank you for your payment. we will <br />
                                                         be in contact with more details shortly </p>
