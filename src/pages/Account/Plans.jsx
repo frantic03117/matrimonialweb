@@ -87,7 +87,7 @@ const Plans = () => {
                                                             </div>
                                                             <div className="subcription_buttons relative -top-10 flex items-center">
                                                                 <button onClick={() => purchaseSubscription(itm._id)} className="size-20  animate-bounce text-white mx-auto relative rounded-full button_1 bg-primary">
-                                                                    Buy
+                                                                    Donate
                                                                 </button>
                                                             </div>
                                                         </div>
