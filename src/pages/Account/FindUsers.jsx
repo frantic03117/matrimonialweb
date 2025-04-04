@@ -62,6 +62,7 @@ const FindUsers = () => {
                 headers: {
                     Authorization: "Bearer " + token
                 },
+
             });
 
             console.log("subs", subscription.data.data)
@@ -151,8 +152,11 @@ const FindUsers = () => {
         }
     }
     React.useEffect(() => {
-        getstates();
         getusers();
+    }, [page])
+    React.useEffect(() => {
+        getstates();
+
         getmvals();
     }, []);
     return (

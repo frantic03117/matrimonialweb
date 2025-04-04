@@ -45,19 +45,21 @@ const UserBox = ({
     }
 
     const convertHeight = (decimalHeight) => {
-        if (decimalHeight) {
-            const [feet, inches] = decimalHeight.toString().split(".").map(Number);
+        return decimalHeight ?? "NA";
+        // if (decimalHeight) {
+        //     const [feet, inches] = decimalHeight.toString().split(".").map(Number);
+        //     console.log(decimalHeight);
 
-            // Handle case where inches might be undefined or invalid
-            if (isNaN(feet) || isNaN(inches)) {
-                return null;  // Return null if the conversion failed
-            }
+        //     // Handle case where inches might be undefined or invalid
+        //     if (isNaN(feet) || isNaN(inches)) {
+        //         return null;  // Return null if the conversion failed
+        //     }
 
-            const totalInches = Math.round((inches / 10) * 12); // Convert decimal part to inches
-            return `${feet}'${totalInches}"`;
-        } else {
-            return null;  // Return null if decimalHeight is undefined or falsy
-        }
+        //     const totalInches = Math.round((inches / 10) * 12); // Convert decimal part to inches
+        //     return `${feet}'${totalInches}"`;
+        // } else {
+        //     return null;  // Return null if decimalHeight is undefined or falsy
+        // }
     };
 
 
@@ -85,16 +87,16 @@ const UserBox = ({
                             <h4 className='text-primary text-lg font-bold'>{userdata.name} {userdata.last_name ?? ""}</h4>
                             <ul className='list-disc font-light flex flex-wrap lg:gap-5 gap-3 list-inside text-primary'>
                                 <li>
-                                    <strong>City </strong> <span>{userdata.city?.title ?? "NA"}</span>
+                                    <strong>City : </strong> <span>{userdata.city?.title ?? "NA"}</span>
                                 </li>
                                 <li>
-                                    <strong>Age </strong> <span>{calculateAge(userdata?.date_of_birth ?? "1990-01-01")}</span>
+                                    <strong>Age :  </strong> <span>{calculateAge(userdata?.date_of_birth ?? "1990-01-01")}</span>
                                 </li>
                                 <li>
-                                    <strong>Height </strong> <span>{convertHeight(userdata?.height)}</span>
+                                    <strong>Height :  </strong> <span>{convertHeight(userdata?.height)}</span>
                                 </li>
                                 <li>
-                                    <strong>Job </strong> <span>{userdata?.occupation?.title}</span>
+                                    <strong>Job : </strong> <span>{userdata?.other_occupation ? userdata?.other_occupation : userdata?.occupation ?? "NA"}</span>
                                 </li>
                             </ul>
                             <div className="w-full py-3 text-end">
@@ -125,8 +127,8 @@ const UserBox = ({
                                                             className="inline-block text-nowrap px-3 py-2 bg-primary text-white text-xs rounded"
                                                         >
                                                             View Profile
-                                                        </Link>                        
-                                                          <button onClick={() => chatUser(userdata._id)} className='text-green-500 border ms-2 border-green-500 px-5 py-2 rounded text-xs'>Chat</button>
+                                                        </Link>
+                                                        <button onClick={() => chatUser(userdata._id)} className='text-green-500 border ms-2 border-green-500 px-5 py-2 rounded text-xs'>Chat</button>
                                                     </>
                                                 )
                                             }
@@ -158,6 +160,7 @@ UserBox.propTypes = {
         occupation: PropTypes.shape({
             title: PropTypes.string,
         }),
+        other_occupation: PropTypes.string,
         profile_image: PropTypes.string,
         favourite: PropTypes.bool,
         interest: PropTypes.shape({
