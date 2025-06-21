@@ -33,7 +33,7 @@ const UserBox = ({
             }
         });
         if (resp.data.success == "1") {
-            navigate('/chat');
+            navigate('/chat/' + user_id);
         }
     };
 

@@ -1,17 +1,47 @@
 import axios from 'axios';
-import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
-import { w3cwebsocket as W3CWebSocket } from 'websocket';
+import React, { useState, useEffect, useRef, useLayoutEffect } from 'react';
+
 import { API_URL, BASE_URL, usertoken } from '../../utils';
 import { useUser } from './UserContext';
+import Loading from '../../components/Loading';
+import PropTypes from 'prop-types';
+
+import { DeleteOutlined } from '@ant-design/icons';
 
 const Chat = ({ connectedRoom, user_id }) => {
+    const messagesEndRef = useRef(null);
+    const messagesContainerRef = useRef(null);
+    const scrollToBottom = () => {
+        const container = messagesContainerRef.current;
+        if (container) {
+            container.scrollTop = container.scrollHeight;
+        }
+    };
     const { user } = useUser();
-
+    const socketRef = useRef(null);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
-    const [client, setClient] = useState(null);
+    const handleDelte = async (id) => {
+        const resp = await axios.delete(API_URL + "chat/delete/" + id, {
+            headers: {
+                Authorization: "Bearer " + token
+            }
+        });
+        if (resp.data.success == "1") {
+            getchats();
+        }
+        getchats();
+    }
 
+    useLayoutEffect(() => {
+        scrollToBottom();
+    }, [messages]);
+    useEffect(() => {
+        setTimeout(() => {
+            scrollToBottom();
+        }, 1500);
+
+    }, []);
 
     const token = localStorage.getItem(usertoken);
 
@@ -26,40 +56,9 @@ const Chat = ({ connectedRoom, user_id }) => {
 
     React.useEffect(() => {
         getchats();
-    }, [connectedRoom])
-    useEffect(() => {
-        if (connectedRoom) {
-            const wsClient = new W3CWebSocket('wss://localhost:5900'); // Replace with your backend WebSocket URL
-
-            wsClient.onopen = () => {
-                console.log('WebSocket Client Connected');
-                wsClient.send(JSON.stringify({ type: 'joinRoom', room: connectedRoom }));
-            };
-
-            wsClient.onmessage = (message) => {
-                const data = JSON.parse(message.data);
-                console.log('Received:', data);
-                setMessages((prev) => [...prev, data]);
-            };
-
-            wsClient.onclose = () => {
-                console.log('WebSocket Client Disconnected');
-            };
-
-            setClient(wsClient);
-
-            return () => {
-                wsClient.close();
-            };
-        }
     }, [connectedRoom]);
 
-    const joinRoom = () => {
-        if (connectedRoom.trim()) {
 
-            setMessages([]);
-        }
-    };
 
     const sendMessage = async () => {
         await axios.post(API_URL + "chat", { room: connectedRoom, message }, {
@@ -67,55 +66,58 @@ const Chat = ({ connectedRoom, user_id }) => {
                 Authorization: "Bearer " + token
             }
         });
-        if (message.trim() && client && client.readyState === client.OPEN) {
-            const data = { room: connectedRoom, message };
-            client.send(JSON.stringify(data));
-            setMessages((prev) => [...prev, { message, sender: 'You' }]);
-            setMessage('');
-        }
+        setMessage('')
+
         getchats();
     };
 
+    useEffect(() => {
+        const socket = new WebSocket('wss://localhost:5900');
+        socketRef.current = socket;
+        socket.onopen = () => {
+            console.log('WebSocket connected');
+            socket.send(JSON.stringify({
+                type: 'joinRoom',
+                room: connectedRoom,
+                user_id: user_id,
+            }));
+        };
+
+
+        socket.onmessage = (event) => {
+            const data = JSON.parse(event.data);
+            console.log('Message received:', data);
+            setMessages((prev) => [...prev, data]);
+        };
+
+        socket.onerror = (err) => {
+            console.error('WebSocket error:', err);
+        };
+
+        socket.onclose = () => {
+            console.log('WebSocket closed');
+        };
+
+        return () => {
+            socket.close();
+        };
+
+    }, [connectedRoom, user_id]);
+    if (!user) {
+        return <Loading />
+    }
     return (
         <div style={{ maxWidth: '600px', margin: 'auto', padding: '20px' }}>
 
 
-            {!connectedRoom ? (
-                <div style={{ marginBottom: '20px' }}>
-                    <input
-                        type="text"
-                        placeholder="Enter room name"
 
-
-                        style={{ width: '70%', padding: '10px', marginRight: '10px' }}
-                    />
-                    <button onClick={joinRoom} style={{ padding: '10px 20px' }}>
-                        Join Room
-                    </button>
-                </div>
-            ) : (
-                <div style={{ marginBottom: '20px' }}>
-                    <p className='hidden'>
-                        Connected to room: <strong>{connectedRoom}</strong>
-                    </p>
-                </div>
-            )}
-
-            <div
-                style={{
-                    border: '1px solid #ccc',
-                    padding: '10px',
-                    height: '300px',
-                    overflowY: 'auto',
-                    marginBottom: '20px',
-                }}
-            >
+            <div ref={messagesContainerRef} className='w-full  border border-gray-700 shadow-sm shadow-gray-600 p-10 rounded-lg h-[400px] overflow-y-auto'>
                 {messages.map((msg) => (
                     <>
 
-                        <div className={`flex w-[80%] py-3 ${msg.sender._id == user._id ? 'ms-auto justify-end' : 'me-auto justify-start'}`}>
+                        <div className={`flex w-[80%] relative py-3 ${msg?.sender?._id == user?._id ? 'justify-end ms-auto' : ''} `}>
                             {
-                                msg.sender._id == user._id && (
+                                msg?.sender?._id == user?._id && (
                                     <>
                                         <div className="size-10">
                                             <img src={BASE_URL + msg.sender?.profile_image} alt="" className="size-full rounded-full" />
@@ -124,11 +126,16 @@ const Chat = ({ connectedRoom, user_id }) => {
                                 )
                             }
 
-                            <div className={`inline-block max-w-[80%] bg-primary/20 p-4 text-wrap text-xs font-light rounded-lg`}>
-                                {msg.message || msg}
+                            <div className={`inline-block max-w-[80%] relative min-w-[80%] bg-primary/20 p-4 text-wrap text-xs font-light rounded-lg`}>
+                                {msg.message}
+
+
+                                <div onClick={() => handleDelte(msg._id)} className="absolute cursor-pointer top-2 end-1">
+                                    <DeleteOutlined />
+                                </div>
                             </div>
                             {
-                                msg.sender._id != user._id && (
+                                msg?.sender?._id != user?._id && (
                                     <>
                                         <div className="size-10">
                                             <img src={BASE_URL + msg.sender?.profile_image} alt="" className="size-full rounded-full" />
@@ -136,25 +143,31 @@ const Chat = ({ connectedRoom, user_id }) => {
                                     </>
                                 )
                             }
+
                         </div>
 
                     </>
 
 
                 ))}
+                <div className='mt-5 mb-5' ref={messagesEndRef} />
             </div>
 
             {connectedRoom && (
-                <div style={{ display: 'flex', gap: '10px' }}>
+                <div className='flex mt-4' >
                     <input
                         type="text"
                         placeholder="Enter message"
                         value={message}
-                        className="form-control"
+                        className="form-control !border-e-0 !rounded-e-none"
                         onChange={(e) => setMessage(e.target.value)}
-                        style={{ flex: 1, padding: '10px' }}
+                        onKeyDown={(e) => {
+                            if (e.key === 'Enter' && message.trim()) {
+                                sendMessage();
+                            }
+                        }}
                     />
-                    <button disabled={!message} onClick={sendMessage} className='btn disabled:bg-gray-800 bg-primary text-white rounded p-3'>
+                    <button disabled={!message} onClick={sendMessage} className='btn text-xs disabled:bg-gray-800 bg-primary text-white rounded p-3 rounded-s-none'>
                         Send
                     </button>
                 </div>
@@ -164,3 +177,8 @@ const Chat = ({ connectedRoom, user_id }) => {
 };
 
 export default Chat;
+
+Chat.propTypes = {
+    connectedRoom: PropTypes.string,
+    user_id: PropTypes.string
+}

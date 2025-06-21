@@ -1,7 +1,9 @@
 // import React from 'react'
+import PropTypes from 'prop-types';
 import load1 from '../assets/loader/1.png';
 import load2 from '../assets/loader/2.png';
 import load3 from '../assets/loader/3.png';
+
 const Loading = ({ height = null }) => {
     return (
         <>
@@ -21,3 +23,7 @@ const Loading = ({ height = null }) => {
 }
 
 export default Loading
+
+Loading.propTypes = {
+    height: PropTypes.string
+}

@@ -46,7 +46,7 @@ function App() {
           <Route path="/users" element={<FindUsers />} />
           <Route path="/subscriptions" element={<Plans />} />
           <Route path="/proposals/:type" element={<SentProposals />} />
-          <Route path="/chat" element={<UserChat />} />
+          <Route path="/chat/:id" element={<UserChat />} />
           <Route path="/payment-response/:id" element={<PaymentResponse />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>
