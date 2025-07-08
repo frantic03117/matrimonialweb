@@ -22,6 +22,7 @@ import ProfilePage from "./pages/Account/ProfilePage";
 import Gallery from "./pages/Account/Gallery";
 import Blogs from "./pages/blogs";
 import SingleBlog from "./pages/blogs/SingleBlog";
+import AllChats from "./pages/Account/AllChats";
 
 function App() {
   const ThemeRoutes = createBrowserRouter(
@@ -47,6 +48,7 @@ function App() {
           <Route path="/subscriptions" element={<Plans />} />
           <Route path="/proposals/:type" element={<SentProposals />} />
           <Route path="/chat/:id" element={<UserChat />} />
+          <Route path="/chats" element={<AllChats />} />
           <Route path="/payment-response/:id" element={<PaymentResponse />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Route>

@@ -17,7 +17,7 @@ const Sidebar = () => {
 
     const token = localStorage.getItem(usertoken);
     const [currenturl, setCurrentUrl] = React.useState('/dashboard');
- 
+
     const location = useLocation();
     React.useEffect(() => {
         setCurrentUrl(location.pathname)
@@ -85,7 +85,7 @@ const Sidebar = () => {
             });
 
             setProfileImage('https://via.placeholder.com/150');
-           
+
             if (itm?.data?.success === 1) {
                 console.log("Upload successful:", itm);
                 window.location.reload();
@@ -154,7 +154,7 @@ const Sidebar = () => {
                         </li>
                         <li>
                             <Link className={`flex gap-4 p-2 ${currenturl == "/gallery" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/gallery'} >
-                            <GrGallery /> <span>Gallery</span>
+                                <GrGallery /> <span>Gallery</span>
                             </Link>
                         </li>
                         <li>
@@ -178,7 +178,7 @@ const Sidebar = () => {
                             </Link>
                         </li>
                         <li>
-                            <Link className={`flex gap-4 p-2 ${currenturl == "/chat" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/chat'} >
+                            <Link className={`flex gap-4 p-2 ${currenturl == "/chats" ? 'bg-primary/30 border-s border-primary text-primary' : ''}`} to={'/chats'} >
                                 <MessageOutlined /> <span>Chat</span>
                             </Link>
                         </li>
