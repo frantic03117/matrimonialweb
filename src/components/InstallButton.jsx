@@ -25,7 +25,7 @@ const InstallButton = ({ className, children }) => {
         }
     };
 
-    if (!deferredPrompt) return null;
+    // if (!deferredPrompt) return null;
 
     return (
         <button onClick={handleInstall} className={className}>
