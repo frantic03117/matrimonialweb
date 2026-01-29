@@ -18,7 +18,8 @@ import HowItWorks from "./HowItWorks";
 import ContactForm from './ContactForm';
 import { useUser } from '../Account/UserContext';
 import { BASE_URL } from '../../utils';
-import { Link } from "react-router-dom";
+
+import InstallButton from '../../components/InstallButton'
 import Disclaimer from "./Disclaimer";
 const Home = () => {
   const { banners, policies } = useUser();
@@ -35,7 +36,7 @@ const Home = () => {
   };
   return (
     <>
-    <Disclaimer/>
+      <Disclaimer />
       <section className="overflow-hidden relative">
         <div className="w-full overflow-hidden" id="hero_banner" >
           <Slider {...settings}>
@@ -73,9 +74,9 @@ const Home = () => {
                     <a target="_blank" href={policies.find(obj => obj.url == "play-store")?.description?.replace(/<\/?p>/g, "")} className=" w-40 border border-white btn rounded p-3 bg-white">
                       <img src={google} alt="" className="w-full" />
                     </a>
-                    <Link to={'/login'} className="w-40 py-4 bg-primary text-center inline-block text-white rounded btn">
-                      Get Started
-                    </Link>
+                    <InstallButton className="w-40 py-4 bg-primary text-center inline-block text-white rounded btn">
+                      Install App
+                    </InstallButton>
                   </div>
                 </div>
               </div>
