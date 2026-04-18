@@ -12,7 +12,19 @@ const Header = () => {
     const [open, setOpen] = React.useState(false);
     const handleOpen = () => setOpen(!open);
     const location = useLocation();
+    const clearAppCache = async () => {
+        if ('caches' in window) {
+            const keys = await caches.keys();
+            await Promise.all(keys.map(key => caches.delete(key)));
+        }
+    };
+
+    // const handleLogout = async () => {
+    //     await clearAppCache();
+    //     window.location.href = '/login';
+    // };
     React.useEffect(() => {
+        clearAppCache();
         setOpen(false);
     }, [location.pathname, isMobile])
 

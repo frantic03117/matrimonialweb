@@ -12,7 +12,7 @@ import { GrGallery } from 'react-icons/gr';
 
 const Sidebar = () => {
     const navigate = useNavigate();
-    const { user, userLogout } = useUser();
+    const { user, userLogout, fetchUser } = useUser();
     const [profileImage, setProfileImage] = React.useState(null);
 
     const token = localStorage.getItem(usertoken);
@@ -64,7 +64,8 @@ const Sidebar = () => {
 
             if (itm?.data?.success === 1) {
                 console.log("Upload successful:", itm);
-                window.location.reload();
+                // window.location.reload();
+                fetchUser()
             } else {
                 console.log("Upload failed or success flag is not 1:", itm?.data?.message || "Unknown error");
             }
